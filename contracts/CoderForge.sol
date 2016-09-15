@@ -7,8 +7,6 @@ contract CoderForge{
     }
 
     function newForge(string name, string nameUrl, string host, string hostUrl, string meetup) returns (address){
-        if(msg.sender!=owner)
-            return;
         address forge = address(new Forge(name, nameUrl, host, hostUrl, meetup));
         return forge;
     }

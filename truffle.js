@@ -4,8 +4,11 @@ module.exports = {
     "app.js": [
       "javascripts/app.js"
     ],
-    "CoderForge.js": [
-      "javascripts/CoderForge.js"
+    "CoderForgeACL.js": [
+      "javascripts/CoderForgeACL.js"
+    ],
+    "bower_components/": [
+        "bower_components/"
     ],
     "app.css": [
       "stylesheets/app.css"

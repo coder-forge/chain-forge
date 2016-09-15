@@ -1,6 +1,8 @@
-var accounts;
-var account;
+"use strict";
 
+let accounts,
+    account;
+const coderForge = new CoderForgeACL();
 
 
 window.onload = function() {
@@ -17,5 +19,9 @@ window.onload = function() {
 
     accounts = accs;
     account = accounts[0];
+
+    $('#register').click((e)=>{
+        coderForge.register();
+    });
   });
 }
