@@ -1,36 +1,25 @@
+import 'Forge.sol';
+
 contract CoderForge{
 
     address owner;
+
+    address[] forges;
+
+    event LogForge(address _from, address forge);
 
     function CoderForge(){
         owner = msg.sender;
     }
 
-    function newForge(string name, string nameUrl, string host, string hostUrl, string meetup) returns (address){
-        address forge = address(new Forge(name, nameUrl, host, hostUrl, meetup));
+    function newForge(string name) returns (address){
+        address forge = new Forge(name);
+        LogForge(forge, owner);
+        uint newLength = forges.push(forge);
         return forge;
     }
-}
 
-contract Forge{
-
-    mapping(string=>string) fields;
-
-    function Forge(string name, string nameUrl, string host, string hostUrl, string meetup){
-
-        fields['name']      = name;
-        fields['nameUrl']   = nameUrl;
-        fields['host']      = host;
-        fields['hostUrl']   = hostUrl;
-        fields['meetup']    = meetup;
-    }
-
-
-    function getField(string name) constant returns (string value){
-        return fields[name];
-    }
-
-    function getFields() constant returns (string name, string nameUrl, string host, string hostUrl, string meetup){
-        return (fields['name'], fields['nameUrl'], fields['host'], fields['hostUrl'], fields['meetup']);
+    function foobar() constant returns (string){
+        return "foobar";
     }
 }

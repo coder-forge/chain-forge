@@ -20,8 +20,30 @@ window.onload = function() {
     accounts = accs;
     account = accounts[0];
 
+    const contract = CoderForge.deployed();
+
+    var event = contract.LogForge();
+    event.watch(function(error, result){
+        console.log(error);
+        console.log(result);
+    });
+
+    contract.newForge("daithi", {from: accounts[0]})
+        .then(function(index){
+            console.log('args...');
+            console.log(arguments);
+        })
+        .catch((e)=>{
+            console.log('ERROR:');
+            console.error(e);
+        });
+
+
     $('#register').click((e)=>{
-        coderForge.register();
+
+        const name = $('input[name=name]','#registerForm').val();
+
+        coderForge.register(name);
     });
   });
 }
