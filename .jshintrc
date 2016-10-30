@@ -1,0 +1,16 @@
+{
+    "esversion": 6,
+    "globals": {
+        "$": true,
+        "alert": true,
+        "CoderForge": true,
+        "CoderForgeACL": true,
+        "Forge": true,
+        "Migrations": true,
+        "window": true,
+        "web3": true
+    },
+    "node": true,
+    "undef": true,
+    "unused": true
+}

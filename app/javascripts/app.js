@@ -1,18 +1,18 @@
 "use strict";
 
+const coderForge = new CoderForgeACL();
 let accounts,
     account;
-const coderForge = new CoderForgeACL();
 
 
 window.onload = function() {
   web3.eth.getAccounts(function(err, accs) {
-    if (err != null) {
+    if (err !== null) {
       alert("There was an error fetching your accounts.");
       return;
     }
 
-    if (accs.length == 0) {
+    if (accs.length === 0) {
       alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
       return;
     }
@@ -30,7 +30,7 @@ window.onload = function() {
 
     contract.newForge("daithi", {from: accounts[0]})
         .then(function(index){
-            console.log('args...');
+            console.log('index: ', index);
             console.log(arguments);
         })
         .catch((e)=>{
@@ -42,8 +42,8 @@ window.onload = function() {
     $('#register').click((e)=>{
 
         const name = $('input[name=name]','#registerForm').val();
-
+        console.log(e);
         coderForge.register(name);
     });
   });
-}
+};
