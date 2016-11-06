@@ -11,7 +11,7 @@ contract Forge{
         fields = Fields(name);
     }
 
-    function getField() constant returns (string name){
-        return "this is definitely a string";
+    function getField(string name) returns (string _name){
+        return "this is a string";
     }
 }
