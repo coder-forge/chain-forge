@@ -2,16 +2,21 @@ pragma solidity ^0.4.2;
 
 contract Forge{
 
-    struct Fields{
-        string name;
-    }
-    Fields fields;
+    address owner;
+    bytes32 public _name;
 
-    function Forge(string name){
-        fields = Fields(name);
+    function Forge(){
+        owner = msg.sender;
     }
 
-    function getField(string name) returns (string _name){
-        return "this is a string";
+    // set forge name
+    function setName(bytes32 name) returns(bool){
+
+        if(msg.sender==owner){
+            _name = name;
+            return true;
+        }
+
+        return false;
     }
 }

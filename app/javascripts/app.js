@@ -22,23 +22,6 @@ window.onload = function() {
 
     const contract = CoderForge.deployed();
 
-    var event = contract.LogForge();
-    event.watch(function(error, result){
-        console.log(error);
-        console.log(result);
-    });
-
-    contract.newForge("daithi", {from: accounts[0]})
-        .then(function(index){
-            console.log('index: ', index);
-            console.log(arguments);
-        })
-        .catch((e)=>{
-            console.log('ERROR:');
-            console.error(e);
-        });
-
-
     $('#register').click((e)=>{
 
         const name = $('input[name=name]','#registerForm').val();

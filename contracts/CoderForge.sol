@@ -14,10 +14,12 @@ contract CoderForge{
         owner = msg.sender;
     }
 
-    function newForge(string name) returns (address){
-        address forge = new Forge(name);
-        LogForge(forge, owner);
-        uint newLength = forges.push(forge);
+    function newForge(bytes32 name) returns (address){
+
+        Forge forge = new Forge();
+        forge.setName(name);
+        LogForge(owner, forge);
+
         return forge;
     }
 

@@ -1,4 +1,7 @@
 "use strict";
+/* global it: true */
+/* global contract: true */
+/* global assert: true */
 
 contract('CoderForge', function(accounts){
 
@@ -15,22 +18,28 @@ contract('CoderForge', function(accounts){
 
         CoderForge.new({from: accounts[0]})
 
-            // watch events
+            // listen events handler for forge creation.
             .then((cf)=>{
-                cf.allEvents(function(err, res){
+
+                let logForge = cf.LogForge();
+
+                logForge.watch(function(err, res){
                     if(err) throw err;
 
                     if(!f){                                                     // TODO better pattern needed to prevent done() multiple times.
                         f = Forge.at(res.args.forge);
+                        logForge.stopWatching();
                         done();
                     }
                 });
+
                 return cf;
             })
 
             // create forge
             .then((cf)=>{
-                cf.newForge('this name')
+
+                cf.newForge('my cool forge', {gas: 200000})
                     .catch(done);
             })
 
@@ -39,9 +48,11 @@ contract('CoderForge', function(accounts){
 
     it('gets forge name', (done)=>{
 
-        f.getField('name')
-            .then(field => {
-                console.log('field: ', field);
+        // name set in previous test
+        f._name.call()
+            .then(function(actual){
+
+                assert(actual, 'my cool forge');
                 done();
             })
             .catch(done);

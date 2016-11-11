@@ -3,9 +3,13 @@
     "globals": {
         "$": true,
         "alert": true,
+        "assert": true,
         "CoderForge": true,
         "CoderForgeACL": true,
+        "contract": true,
         "Forge": true,
+        "it": true,
+        "then": true,
         "Migrations": true,
         "window": true,
         "web3": true
