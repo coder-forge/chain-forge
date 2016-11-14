@@ -23,7 +23,11 @@ contract CoderForge{
         return forge;
     }
 
-    function foobar() constant returns (string){
-        return "foobar";
+    function kill() returns(bool){
+        if(msg.sender==owner){
+            selfdestruct(msg.sender);
+            return true;
+        }
+        return false;
     }
 }

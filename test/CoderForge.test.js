@@ -5,9 +5,9 @@
 
 contract('CoderForge', function(accounts){
 
-    let cf, f;
+    let cf, forge;
 
-    it('is deployed', (done)=>{
+    beforeEach((done)=>{
 
         cf = CoderForge.at(CoderForge.deployed().address);
         assert.isTrue(true);
@@ -16,45 +16,44 @@ contract('CoderForge', function(accounts){
 
     it('constructs new forge and watches events', (done)=>{
 
-        CoderForge.new({from: accounts[0]})
+        let f,
+            logForge = cf.LogForge();
 
-            // listen events handler for forge creation.
-            .then((cf)=>{
+        // watch events for new forge.
+        logForge.watch(function(err, res){
+            if(err) throw err;
 
-                let logForge = cf.LogForge();
+            forge = Forge.at(res.args.forge);
+            logForge.stopWatching();
+            done();
+        });
 
-                logForge.watch(function(err, res){
-                    if(err) throw err;
-
-                    if(!f){                                                     // TODO better pattern needed to prevent done() multiple times.
-                        f = Forge.at(res.args.forge);
-                        logForge.stopWatching();
-                        done();
-                    }
-                });
-
-                return cf;
-            })
-
-            // create forge
-            .then((cf)=>{
-
-                cf.newForge('my cool forge', {gas: 200000})
-                    .catch(done);
-            })
-
+        // create forge.
+        cf.newForge('my cool forge', {gas: 200000})
             .catch(done);
     });
 
-    it('gets forge name', (done)=>{
+    // depends above test
+    it('gets forge name', ()=>{
 
         // name set in previous test
-        f._name.call()
-            .then(function(actual){
+        return forge._name.call()
+            .then((actual)=>{
 
                 assert(actual, 'my cool forge');
-                done();
+                return;
             })
-            .catch(done);
+            .then(forge.kill);
+    });
+
+    it.skip('will not suicide contract if not owner', ()=>{
+
+        // suicide
+        return cf.kill({from: accounts[1]});
+    });
+
+    it('will suicide contract if owner', (skip)=>{
+
+        return cf.kill({from: accounts[0]});
     });
 });
