@@ -1,27 +1,58 @@
 contract('Forge', function(accounts){
 
-    let forge;
+    let forge,
+        expectedName = 'my forge';
 
-    it('is deployed', (done)=>{
+    beforeEach((done)=>{
 
+        // covers testing "is deployed?"
         forge = Forge.at(Forge.deployed().address);
         assert.isTrue(true);
+
         done();
-    });
+    })
 
-    it('sets & gets name', (done)=>{
+    it('sets & gets name', ()=>{
 
-        let expected = 'my forge';
-
-        forge.setName(expected, {from: accounts[0], gas: 200000})
+        return forge.setName(expectedName, {from: accounts[0], gas: 200000})
             .then(()=>{
+
                 return forge._name.call({from: accounts[0]});
             })
-            .then(function(_name){
+            .then((_name)=>{
+
                 let actual = web3.toUtf8(_name);
-                assert.equal(actual, expected);
-                done();
+                assert.equal(actual, expectedName);
+            });
+    });
+
+    it('will not suicide contract if not owner', ()=>{
+
+        // suicide
+        return forge.kill({from: accounts[1]})
+            .then(()=>{
+
+                // test
+                return forge._name.call({from: accounts[0]})
+                    .then((name)=>{
+
+                        let actual = web3.toUtf8(name);
+                        assert.equal(actual, expectedName);
+                    });
+            });
+    });
+
+    it('will suicide contract if owner', ()=>{
+
+        return forge.kill({from: accounts[0]})
+            .then(()=>{
+
+                return forge._name.call({from: accounts[0]})
+                    .then((name)=>{
+
+                        let actual = web3.toUtf8(name);
+                        assert.notEqual(actual, expectedName);
+                    })
             })
-            .catch(done);
     });
 });

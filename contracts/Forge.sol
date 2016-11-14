@@ -19,4 +19,12 @@ contract Forge{
 
         return false;
     }
+
+    function kill() returns(bool){
+        if(msg.sender==owner){
+            selfdestruct(msg.sender);
+            return true;
+        }
+        return false;
+    }
 }
