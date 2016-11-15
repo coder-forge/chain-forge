@@ -1,26 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CoderForge</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link href="./app.css" rel='stylesheet' type='text/css'>
-  <script src="./bower_components/jquery/dist/jquery.js"></script>
-  <script src="./CoderForgeACL.js"></script>
-  <script src="./app.js"></script>
-</head>
-<body>
-  <h1>Coder Forge</h1>
-  <h3>A place to learn how to forge out code, to smyth out patterns and designs. Complete beginners welcome, bring your own laptop.</h3>
+    <head>
+        <title>CoderForge</title>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link href="./app.css" rel='stylesheet' type='text/css'>
+        <link href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <script src="./bower_components/jquery/dist/jquery.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="./CoderForgeACL.js"></script>
+        <script src="./app.js"></script>
+    </head>
+    <body>
 
-  <div id="registerForm">
-      <p>
-          name
-          <input type="text" name="name" value="daithi">
-      </p>
-      <p>
-          <input type="button" id="register" value="Register A Forge">
-      </p>
-  </div>
+        <div class="container">
+            <h1>Coder Forge</h1>
+            <h3>A place to learn how to forge out code, to smyth out patterns and designs. Complete beginners welcome, bring your own laptop.</h3>
 
-</body>
+            <div id="registerForm">
+                <p>
+                    name
+                    <input type="text" name="name" value="daithi">
+                </p>
+                <p>
+                    <input type="button" id="register" value="Register A Forge">
+                </p>
+            </div>
+
+            <div id="registerSuccess" style="display:none">
+                <div class="alert alert-success">
+                    Forge Created!
+                    <dl>
+                        <dt>Name</dt>
+                        <dd class="name"></dd>
+                        <dt>Address</dt>
+                        <dd class="address"></dd>
+                    </dl>
+                </div>
+            </div>
+            <div id="registerError" style="display:none">
+                <div class="alert alert-danger">
+                    <p>
+                        Error! <span class="msg"></span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </body>
 </html>

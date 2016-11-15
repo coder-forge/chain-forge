@@ -4,58 +4,40 @@ const coderForge = new CoderForgeACL();
 let accounts,
     account;
 
-
 window.onload = function() {
-  web3.eth.getAccounts(function(err, accs) {
-    if (err !== null) {
-      alert("There was an error fetching your accounts.");
-      return;
-    }
+    web3.eth.getAccounts(function(err, accounts) {
 
-    if (accs.length === 0) {
-      alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-      return;
-    }
+        if(err !== null)
+            return console.error("There was an error fetching your accounts.");
+        if(accounts.length === 0)
+            return console.error("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
 
+	    account = accounts[0];
+        coderForge.coinbase = account;
 
-    accounts = accs;
-    account = accounts[0];
+        $('#register').click(function(){
 
-    const contract = CoderForge.at(CoderForge.deployed().address);
+            const name = $('input[name=name]','#registerForm').val();
 
-    $('#register').click(function(){
+            coderForge.newForge(name)
+                .then(forge => {
 
-        const name = $('input[name=name]','#registerForm').val();
+                    const div = $('#registerSuccess');
 
-        // start event watching
-        let logForge = contract.LogForge();
+                    $('dd.name', div).html(name);
+                    $('dd.address', div).html(forge.address);
 
-        // watch events for new forge.
-        logForge.watch((err, res)=>{
-            if(err) throw err;
-
-            logForge.stopWatching();
-            return Forge.at(res.args.forge)._name.call()
-                .then((bytes32)=>{
-
-                    const actual = web3.toUtf8(bytes32);
-
-                    (name===actual) ?
-                        console.log('contract created\n\nForge '+name+'\nAddress: '+res.args.forge) :
-                        console.log('oops, something went wrong');
+                    $('#registerForm').hide();
+                    div.show();
                 })
                 .catch(err => {
-                    throw err;
+
+                    const div = $('#registerError');
+                    $('.msg', div).html(err);
+
+                    $('#registerForm').hide();
+                    div.show();
                 });
         });
-
-        // create forge.
-        console.log('creating forge...');
-        contract.newForge(''+name, {from: accounts[0], gas: 200000})
-            .catch(err => {
-                console.error(err);
-                throw err;
-            });
     });
-  });
 };
