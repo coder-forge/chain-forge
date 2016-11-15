@@ -2,37 +2,56 @@
 
 class CoderForgeACL{
 
-    get contract(){
-        return CoderForge.deployed();
+    construct(){
+        this.coinbase;
     }
 
-    register(name){
+    /**
+     * Get ACL contract.
+     * @return {CoderForge} The main ACL controller contract.
+     */
+    get contract(){
+        return CoderForge.at(CoderForge.deployed().address);
+    }
+
+    /**
+     * Register a new forge.
+     * @param {String} name The forge name.
+     * @return {Promise} resolves to created Forge contract.
+     */
+    newForge(name){
 
         const self = this,
-            owner = self.contract.address,
-            watcher = self.contract.LogForge(null, {fromBlock: 0, toBlock: 'latest'});
+            logForge = self.contract.LogForge();
 
-        console.log('owner: ', owner);
-        console.log('watcher: ', watcher);
+        return new Promise((resolve, reject)=>{
 
-        self.contract.newForge(name, {from: web3.eth.accounts[0]})
-            .then(function(tx){
+            // watch events for new forge.
+            logForge.watch((err, res)=>{
+                if(err) return reject(err);
 
-                console.log('tx: ', tx);
-                console.log(arguments);
-                watcher.get()
-                    .then((logs)=>{
-                        console.log('logs: ', logs);
+                let forge = Forge.at(res.args.forge);
+
+                forge._name.call()
+                    .then( bytes32 =>{
+
+                        const actual = web3.toUtf8(bytes32);
+
+                        if(name===actual)
+                            return resolve(forge);
+                        return reject(new Error('Unkown Error'));
+                    })
+                    .catch(err => {
+                        return reject(err);
                     });
-            })
-            .then(function(events){
-
-                console.log(events);
-                return events;
-            })
-            .catch((e)=>{
-                console.log('ERROR:');
-                console.error(e);
+                logForge.stopWatching();
             });
+
+            // create forge.
+            self.contract.newForge(''+name, {from: self.coinbase, gas: 200000})
+                .catch(err => {
+                    return reject(err);
+                });
+        });
     }
 }
