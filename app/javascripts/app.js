@@ -17,16 +17,45 @@ window.onload = function() {
       return;
     }
 
+
     accounts = accs;
     account = accounts[0];
 
-    const contract = CoderForge.deployed();
+    const contract = CoderForge.at(CoderForge.deployed().address);
 
-    $('#register').click((e)=>{
+    $('#register').click(function(){
 
         const name = $('input[name=name]','#registerForm').val();
-        console.log(e);
-        coderForge.register(name);
+
+        // start event watching
+        let logForge = contract.LogForge();
+
+        // watch events for new forge.
+        logForge.watch((err, res)=>{
+            if(err) throw err;
+
+            logForge.stopWatching();
+            return Forge.at(res.args.forge)._name.call()
+                .then((bytes32)=>{
+
+                    const actual = web3.toUtf8(bytes32);
+
+                    (name===actual) ?
+                        console.log('contract created\n\nForge '+name+'\nAddress: '+res.args.forge) :
+                        console.log('oops, something went wrong');
+                })
+                .catch(err => {
+                    throw err;
+                });
+        });
+
+        // create forge.
+        console.log('creating forge...');
+        contract.newForge(''+name, {from: accounts[0], gas: 200000})
+            .catch(err => {
+                console.error(err);
+                throw err;
+            });
     });
   });
 };

@@ -8,7 +8,10 @@ contract CoderForge{
 
     address[] forges;
 
-    event LogForge(address _from, address forge);
+    event LogForge(
+        address _from,
+        address indexed forge
+    );
 
     function CoderForge(){
         owner = msg.sender;
