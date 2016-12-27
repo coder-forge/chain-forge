@@ -26,6 +26,12 @@ contract('Forge', function(accounts){
             });
     });
 
+    it.skip('will release funds to organiser', ()=>{
+
+        // send ether: http://ethereum.stackexchange.com/a/2971/4304
+        targetAddress.call.gas(200000).value(this.balance)();
+    });
+
     it('will not suicide contract if not owner', ()=>{
 
         // suicide

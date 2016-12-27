@@ -8,7 +8,8 @@
   },
   "scripts": {
     "postinstall": "node_modules/.bin/bower install",
-    "test": "npm test"
+    "start": "truffle serve",
+    "test": "truffle test"
   },
   "repository": {
     "type": "git",
