@@ -19,9 +19,11 @@ window.onload = function() {
 
             const name = $('input[name=name]','#registerForm').val();
 
+            console.log('name: ', name);
             coderForge.newForge(name)
                 .then(forge => {
 
+                    console.log('forge: ', forge);
                     const div = $('#registerSuccess');
 
                     $('dd.name', div).html(name);
@@ -36,6 +38,7 @@ window.onload = function() {
                         correctLevel : QRCode.CorrectLevel.H
                     });
 
+                    console.log('qrcode: ', qrcode);
                     $('#registerForm').hide();
                     div.show();
                 })
