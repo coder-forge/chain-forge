@@ -4,6 +4,8 @@ contract Forge{
 
     address owner;
     bytes32 public _name;
+    bytes32 public _organiser;
+    bytes32 public _url;
 
     function Forge(){
         owner = msg.sender;
@@ -19,6 +21,28 @@ contract Forge{
 
         if(msg.sender==owner){
             _name = name;
+            return true;
+        }
+
+        return false;
+    }
+
+    // set forge organiser
+    function setOrganiser(bytes32 organiser) returns(bool){
+
+        if(msg.sender==owner){
+            _organiser = organiser;
+            return true;
+        }
+
+        return false;
+    }
+
+    // set forge url (meetup, eventbrite, website etc)
+    function setUrl(bytes32 url) returns(bool){
+
+        if(msg.sender==owner){
+            _url = url;
             return true;
         }
 

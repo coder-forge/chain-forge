@@ -29,19 +29,32 @@ contract('CoderForge', function(accounts){
         });
 
         // create forge.
-        cf.newForge('my cool forge', {gas: 200000})
-            .catch(done);
+        cf.newForge('my cool forge', 'daithi', 'http://coderforge.io', {from: accounts[0], gas: 2000000})
+            .catch(e => {
+                throw e;
+            });
     });
 
     // depends above test
-    it('gets forge name', ()=>{
+    it('gets forge data', (done)=>{
 
-        // name set in previous test
+        // data set in previous test
         return forge._name.call()
-            .then((actual)=>{
+            .then(function(name){
 
-                assert(actual, 'my cool forge');
-                return;
+                assert.equal(web3.toUtf8(name), 'my cool forge');
+
+                return forge._organiser.call()
+                    .then(function(organiser){
+
+                        assert.equal(web3.toUtf8(organiser), 'daithi')
+
+                        return forge._url.call()
+                            .then(function(url){
+                                assert.equal(web3.toUtf8(url), 'http://coderforge.io');
+                                done();
+                            });
+                    });
             })
             .then(forge.kill);
     });

@@ -24,21 +24,54 @@
             </nav>
 
             <div class="jumbotron">
-                <h3>A place to learn how to forge out code, to smyth out patterns and designs. Complete beginners welcome, bring your own laptop.</h3>
+                <p>A place to learn how to forge out code, to smyth out patterns and designs. Complete beginners welcome, bring your own laptop.</p>
             </div>
 
             <div class="jumbotron">
-                <div id="registerForm">
-                    <form>
-                        <div class="form-group">
-                    <p>
-                        name
-                        <input type="text" name="name" value="daithi">
-                    </p>
-                    <p>
-                        <input type="button" id="register" value="Register A Forge">
-                    </p>
-                </div>
+
+                <form class="form-horizontal" id="registerForm">
+                    <div class="form-group required">
+                        <label for="forgeName" class="col-sm-2 control-label">name</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="name" id="forgeName" class="form-control" placeholder="enter the name of your forge" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="url" class="col-sm-2 control-label">url</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="url" id="url" class="form-control" placeholder="link to forge dates. (usually meetup/eventbrite links)" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="orgName" class="col-sm-2 control-label">organiser</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="organiser" id="orgName" class="form-control" placeholder="person/organisation organising the event" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orgWallet" class="col-sm-2 control-label">organiser wallet</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="orgWallet" id="orgWallet" class="form-control" placeholder="person/organisation ethereum address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address" class="col-sm-2 control-label">address</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="address" id="Address" class="form-control" placeholder="the main address for the forge events">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hostName" class="col-sm-2 control-label">host</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="hostName" id="hostName" class="form-control" placeholder="person/organisation hosting the event">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">launch new forge</button>
+                        </div>
+                    </div>
+                </form>
 
                 <div id="registerSuccess" style="display:none">
                     <div class="alert alert-success">

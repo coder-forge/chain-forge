@@ -16,10 +16,11 @@ class CoderForgeACL{
 
     /**
      * Register a new forge.
-     * @param {String} name The forge name.
+     * @param {Object} forge Forge object {name, organiser, url, orgWallet,
+     * address, hostName}.
      * @return {Promise} resolves to created Forge contract.
      */
-    newForge(name){
+    newForge(forge){
 
         const self = this,
             logForge = self.contract.LogForge();
@@ -29,7 +30,11 @@ class CoderForgeACL{
             console.log('ACL newForge()');
 
             // create forge.
-            return self.contract.newForge(''+name, {from: self.coinbase, gas: 2000000})
+            return self.contract.newForge(
+                ''+forge.name,
+                ''+forge.organiser,
+                ''+forge.url,
+                {from: self.coinbase, gas: 2000000})
                 .then(function(contract){
                     console.log('newForge.then:arguments: ', arguments);
 
