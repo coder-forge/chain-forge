@@ -10,7 +10,7 @@ contract CoderForge{
 
     event LogForge(
         address _from,
-        address indexed forge
+        address forge
     );
 
     function CoderForge(){
