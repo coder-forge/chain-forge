@@ -52,7 +52,7 @@ contract('CoderForge', function(accounts){
         return cf.kill({from: accounts[1]});
     });
 
-    it('will suicide contract if owner', (skip)=>{
+    it('will suicide contract if owner', ()=>{
 
         return cf.kill({from: accounts[0]});
     });

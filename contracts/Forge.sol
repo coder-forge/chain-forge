@@ -9,6 +9,11 @@ contract Forge{
         owner = msg.sender;
     }
 
+    function payOrganiser() returns(bool){
+        // http://ethereum.stackexchange.com/a/2971/4304
+        return true; // targetAddress.call.gas(200000).value(this.balance)();
+    }
+
     // set forge name
     function setName(bytes32 name) returns(bool){
 
