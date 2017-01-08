@@ -3,7 +3,7 @@ machine:
   post:
     - testrpc:
         background: true
-    - sleep: 5
+    - sleep 5
   timezone:
     Europe/Dublin # Set the timezone
 
