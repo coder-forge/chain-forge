@@ -2,6 +2,9 @@
   "name": "chain-forge",
   "version": "0.0.1",
   "description": "Blockchain development for Coder Forge registration contracts",
+  "engines":{
+    "node": ">=6.9.1"
+  },
   "main": "truffle serve",
   "directories": {
     "test": "test"
@@ -27,7 +30,7 @@
   "homepage": "https://github.com/coder-forge/chain-forge#readme",
   "dependencies": {
     "bower": "^1.7.9",
-    "ethereumjs-testrpc": "^3.0.0",
-    "truffle": "^2.1.0"
+    "ethereumjs-testrpc": "^3.0.3",
+    "truffle": "^2.1.1"
   }
 }
