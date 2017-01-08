@@ -1,9 +1,5 @@
 ## Customize the test machine
 machine:
-  post:
-    - testrpc:
-        background: true
-    - sleep 5
   timezone:
     Europe/Dublin # Set the timezone
 
@@ -16,7 +12,11 @@ dependencies:
   pre:
     - npm install -g bower
     - npm install -g truffle
-    - npm install -g testrpc
+    - npm install -g ethereumjs-testrpc
 
   override:
     - bower install
+  post:
+    - testrpc:
+        background: true
+    - sleep 5
