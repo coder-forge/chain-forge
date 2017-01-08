@@ -126,3 +126,11 @@ To test make sure that `testrpc` is running, then do
 ```bash
 truffle test test/*.test.js
 ```
+
+
+### Troubleshooting
+
+`invalid byte index`
+This can be caused because you are not converting the `bytes32` value returned
+from the blockchain to `Ascii`. Try using `web3.toAscii($bytes32)` where
+`$bytes32` is the value being returned.
