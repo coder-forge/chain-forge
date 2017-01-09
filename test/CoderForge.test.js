@@ -16,34 +16,25 @@ contract('CoderForge', function(accounts){
 
     it('constructs new forge and watches events', (done)=>{
 
-        let f,
-            logForge = cf.LogForge();
-
-        // watch events for new forge.
-        logForge.watch(function(err, res){
-            if(err) throw err;
-
-            forge = Forge.at(res.args.forge);
-            logForge.stopWatching();
-            done();
-        });
-
         // create forge.
-        cf.newForge('my cool forge', {gas: 200000})
-            .catch(done);
-    });
+        cf.newForge('my cool forge', accounts[1], {from: accounts[0], gas: 2000000})
+          .then((transHash)=>{
 
-    // depends above test
-    it('gets forge name', ()=>{
+            let logForge = cf.LogForge({transactionHash: transHash, fromBlock: 'latest'});
 
-        // name set in previous test
-        return forge._name.call()
-            .then((actual)=>{
+            // watch events for new forge.
+            logForge.watch(function(err, res){
+              if(err) throw err;
 
-                assert(actual, 'my cool forge');
-                return;
-            })
-            .then(forge.kill);
+              forge = Forge.at(res.args.forge);
+              logForge.stopWatching();
+              done();
+              return forge;
+            });
+          })
+          .catch(e => {
+            throw e;
+          });
     });
 
     it.skip('will not suicide contract if not owner', ()=>{

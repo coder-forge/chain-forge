@@ -15,11 +15,24 @@ window.onload = function() {
 	    account = accounts[0];
         coderForge.coinbase = account;
 
-        $('#register').click(function(){
+        $('#registerForm').submit(function(e){
+            e.preventDefault();
 
-            const name = $('input[name=name]','#registerForm').val();
+            const forge = {};
+            let errs = [];
 
-            coderForge.newForge(name)
+            ['name', 'url', 'organiser', 'orgWallet', 'address', 'hostName'].forEach(function(field){
+
+                let val = $('input[name='+field+']','#registerForm').val();
+
+                if(!val && $('input[name='+field+']','#registerForm').attr('required')) errs.push(field+' is required');
+                forge[field] = $('input[name='+field+']','#registerForm').val();
+            })
+
+            if(errs.length) return alert(errs.join('\n'));
+            console.log('submitting new forge: ', forge);
+
+            coderForge.newForge(forge)
                 .then(forge => {
 
                     const div = $('#registerSuccess');
@@ -48,5 +61,6 @@ window.onload = function() {
                     div.show();
                 });
         });
+
     });
 };
