@@ -4,7 +4,7 @@ contract Forge{
 
     address owner;
     bytes32 public _name;
-    bytes32 public _organiser;
+    address public _organiser;
     bytes32 public _url;
 
     function Forge(){
@@ -28,7 +28,7 @@ contract Forge{
     }
 
     // set forge organiser
-    function setOrganiser(bytes32 organiser) returns(bool){
+    function setOrganiser(address organiser) returns(bool){
 
         if(msg.sender==owner){
             _organiser = organiser;

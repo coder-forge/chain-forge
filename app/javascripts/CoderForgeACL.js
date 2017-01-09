@@ -32,13 +32,14 @@ class CoderForgeACL{
             // create forge.
             return self.contract.newForge(
                 ''+forgeData.name,
+                ''+forgeData.orgWallet,
                 {from: self.coinbase, gas: 2000000})
-                .then(function(contract){
+                .then(function(transHash){
                     console.log('newForge.then:arguments: ', arguments);
 
                     // watch events for new forge.
                     let meta = self.contract;
-                    let logForge = meta.LogForge({transactionHash: contract, fromBlock: 'latest'});
+                    let logForge = meta.LogForge({transactionHash: transHash, fromBlock: 'latest'});
                     logForge.watch(function(err, res){
                         logForge.stopWatching();
                         console.log('logForge.watch.args: ', [err, res]);
