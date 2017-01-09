@@ -10,13 +10,12 @@ machine:
 ## Customize dependencies
 dependencies:
   pre:
-    - npm install -g bower
-    - npm install -g truffle
-    - npm install -g ethereumjs-testrpc
+    - npm install -g bower truffle ethereumjs-testrpc
 
   override:
+    - npm install
     - bower install
   post:
     - testrpc:
         background: true
-    - sleep 5
+    - sleep 3
