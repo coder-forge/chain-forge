@@ -1,4 +1,5 @@
 module.exports = function(deployer) {
-  deployer.deploy(CoderForge);
-  deployer.deploy(Forge);
+  deployer.deploy(ConvertLib);
+  deployer.autolink();
+  deployer.deploy(MetaCoin);
 };

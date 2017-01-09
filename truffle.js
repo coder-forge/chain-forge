@@ -4,12 +4,6 @@ module.exports = {
     "app.js": [
       "javascripts/app.js"
     ],
-    "CoderForgeACL.js": [
-      "javascripts/CoderForgeACL.js"
-    ],
-    "bower_components/": [
-        "bower_components/"
-    ],
     "app.css": [
       "stylesheets/app.css"
     ],
@@ -17,8 +11,6 @@ module.exports = {
   },
   rpc: {
     host: "localhost",
-    port: 8545,
-    gas: 4712388,
-    gasPrice: 50000000000
+    port: 8545
   }
 };
