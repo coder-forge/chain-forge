@@ -1,0 +1,21 @@
+## Customize the test machine
+machine:
+  timezone:
+    Europe/Dublin # Set the timezone
+
+  # Version of ruby to use
+  node:
+    version: 6.9.1
+
+## Customize dependencies
+dependencies:
+  pre:
+    - npm install -g bower truffle ethereumjs-testrpc
+
+  override:
+    - npm install
+    - bower install
+  post:
+    - testrpc:
+        background: true
+    - sleep 3
