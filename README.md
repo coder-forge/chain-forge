@@ -134,3 +134,11 @@ truffle test test/*.test.js
 This can be caused because you are not converting the `bytes32` value returned
 from the blockchain to `Ascii`. Try using `web3.toAscii($bytes32)` where
 `$bytes32` is the value being returned.
+
+
+`eth_getFilterChanges` loop
+If `testrpc` starts printing the above in a loop then try the following:
+ 1. Stop `testrpc` & `truffle`
+ 2. Restart `testrpc` and run `truffle migrate`
+ 3. With `testrpc` still running, when point 2 above is finished, rerun `truffle
+ serve`.
