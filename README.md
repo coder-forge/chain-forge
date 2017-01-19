@@ -95,7 +95,7 @@ completed yet. Here's whats to come (release date early Feb 2017).
 Install dependencies
 
 ```bash
-npm install -g truffle testrpc bower
+npm install -g truffle ethereumjs-testrpc bower
 ```
 
 Install Chain Forge
