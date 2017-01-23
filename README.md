@@ -10,54 +10,53 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io).
 
 First we will get all our tools setup:
 
- - node version
- - truffle
- - testrpc
- - bower
- - circleci
+ - `node`: The main runtime environment we will be using.
+ - `git`: The code management system.
 
-### Node Version
+Next we'll install our required node packages
+ - `truffle`: A framework for developing web services with blockchain.
+ - `testrpc`: A blockchain that runs locally, ie on your machine, for development.
+ - `bower`: A package manager for front end javascript libraries, eg jQuery
 
-We will be working from version `6.9.1`. NVM is the best tool for managing
-different versions of Nodejs.
+### Install NodeJS - NVM
 
-### Truffle
+The repo is built using node version `6.9.1`. We recommend using a node version
+manager to easily swap between versions.
 
-Once node is installed you can install `truffle` globally using the command:
+ - OSX & Linux: [NVM](https://github.com/creationix/nvm#installation)
+ - Windows: [NVM Windows](https://github.com/coreybutler/nvm-windows/wiki)
+
+If you like you can install without a version manager. You can find a list of
+node releases [here](https://nodejs.org/en/download/releases/). Once you have
+node js installed you can check the current version with:
+
 ```bash
-npm install -g truffle
+node -v
 ```
+
+### Install Dependencies - npm packages
+
+Once `node` is installed you can install the required dependencies with the
+following line (this may take a while for some, go grab a coffee ;) ):
+
+```bash
+npm install -g truffle ethereumjs-testrpc bower
+```
+
+### Project Folder
 
 Once installed we will initiate our project with truffle. Create a project
 folder and change directory into it. Then run the command:
+
 ```bash
 truffle init
 ```
 
-### TestRPC
+This should give you the same files that are in this branch. Truffle gives you
+some default contracts and their unit tests to play with. This is the basic
+folder structure:
 
-This will run a blockchain locally to your machine. It will automatically create
-10 accounts when you launch it and makes developing, especially from a TDD point
-of view, extremely easy. Although at the time of writing I'm finding it a big
-buggy at times.
-
-Install with the command:
-```bash
-npm install -g ethereumjs-testrpc
-```
-
-### Bower
-
-This is a package manager that will handle any front end 3rd party code we will
-be using, such as bootstrap.
-
-Install with the command:
-```bash
-npm install -g bower
-```
-
-### CircleCI
-
-If you know what this is then have a look at the `circle.yml` file to use as an
-example, if you don't know what this is then don't worry its not needed for this
-tutorial.
+ - app/ Where the webserver files live
+ - contracts/ Your solidity contracts for the blockchain
+ - migrations/ Sorting order contracts are deployed and their linkage
+ - test/ The unit tests directory.
