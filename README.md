@@ -2,103 +2,49 @@
 
 A blockchain tutorial from [Coder Forge](http://coderforge.io).
 
-### About
+*Currently this project is a work in progress.*
+*Project is conceptual only, not ready for production servers.*
+*You have been warned... 3 times*
 
-Currently this project is a work in progress. The end goal will be to show a
-sample application on the blockchain, that is easy to build and implement and
-importantly shows the simplicity behind the disruptive products that are about
-to change our world. The tutorial will be organised as a 4 hour demonstration
-that will be given in mid February 2017.
+Using `truffle` and `testrpc` we hope to show the simplicity of using
+blockchain technology to decomplex business models. This tutorial will be split
+into parts, each part as a branch with its relevant `README.md` providing the
+relevant instructions.
 
-The `chain forge` application solves complexity in both legal and financial
-operations within a large organisation. Take for example an international
-franchise. Data, ie records, would be gathered and stored based on regional
-operations. This data is then aggregated by the parent franchise. Nothing runs
-simple, human error, manipulation of data and even in worse case scenario's
-corruption or fiddling of the books. These problems create complexity because
-the only solution is to add regulating systems on both the regional operations
-and the parent franchise's operations.
+The code presented here is in no way ready for real world application, yet. But
+should serve as a good example of the capabilities of blockchain technology.
 
-In fact, that complexity of ensuring data is honest can be found in nearly every
-company, large or small, from logistics to finance and even down to our
-democratic society with data such as voting data. Blockchain is a technology
-that provides a distributed database that self regulates its data.
-The important words here are:
+### Tools you will need
 
- 1. distributed database
- 2. (honest data) self regulates the data
+The following will need to be set up on your machine:
+
+ - NodeJS v6.9.1
 
 
-### Blockchain under the hood
+### Tutorial Branches
 
-We won't be going too deep under the hood for this tutorial. Our end goal here
-is to give us a good thematic understanding of blockchain and how its going to
-fit in todays world.
+Also see the `About` section below for an explaination of the `Chain Forge` app.
 
-Thought experiments are probably the best way to explain the purpose and
-abilities of any new tech. Imagine you have an excel sheet. This sits on your
-computer, you control the data on it. It can be submitted to other departments,
-where the receiving party can then edit their copy, manipulate the data and send
-it on as part of their own excel sheet.
+|[Part 1](https://github.com/coder-forge/chain-forge/tree/part-1)|
+Installation of tools and setup of workspace
 
-With blockchain, your excel sheet is distributed across multiple machines (in
-some cases 10K or more). If somebody in another department needs access to your
-data for their own reports, as an example, they just read from this distributed
-excel sheet, from a distributed database. As the data goes through the pipeline
-of the organisation it is just read and updated from this distributed database
-instead of user owned excel sheets being passed around and thus regulated. If
-anyone changes any piece of data then it will change for everybody.
+|[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|
+T.B.A
 
-In order to change the data maliciously an attacker, or bad employee, would have
-to hack all 10,000 copies at the same instance, which would probably fail as we
-will see next.
+|[Part 3]|
 
-So data is distributed across 10K or more machines, like a `bit torrent` or `tor`
- network. Wouldn't this massive distributed database be crunching between nodes,
-cross checking that the data hasn't been manipulated and all nodes are in sync?
-Yep it does. This requirement for processing power is what provides the
-necessity for `Mining`. This is where heavy cryptography is used to check the
-consistency of the data. The self regulating processing power needed to
-ensure this distributed data is in sync is done by `Mining`. The measurement of
-this power is the `Bitcoin` or the `Ether` which we will be using here.
+|[Part 4]|
 
-You don't have to `Mine` to store data on the blockchain, but you will have to
-pay in whatever term is used for the cost of processing power your data is
-using. With the Bitcoin network it is bitcoin and with the ethereum network it
-is ether. For those that are interested, the only reason that these measurements
-of processing power for a distributed database, aka crypto currencies, have any
-monetary value in the physical world is purely because people have decided to
-make them related. That piece of political philosophy is also beyond this
-tutorial but a very interesting rabbit hole to read up on.
-
-Some points that must be looked into after this tutorial:
- - proof of work
- - double spend issue
- - DAO (Distributed Autonomous Organisation)
- - Trustfull & Trustless systems
- - Bitcoin app dev, Hyperledger, Ethereum
-
-
-### Roadmap
-
-This tutorial / demonstration application is still a work in progress. For
-example most of the wording will definitely change and the code is not
-completed yet. Here's whats to come (release date early Feb 2017).
-
- - Release funds if org has wallet
- - Use struct dataType for storing `Forge Data`
- - Split tutorial into parts (use branches to link parts)
- - Measure required gas for transactions
 
 ### Installation
 
-Install dependencies
+Install the dependencies for `Chain Forge`.
 
 ```bash
 npm install -g truffle ethereumjs-testrpc bower
 ```
 
-Install Chain Forge
+Install `Chain Forge`.
 
 ```bash
 npm install
@@ -107,7 +53,7 @@ bower install
 
 ### Running Locally
 
-For testing and experimentation it is best to run Chain Forge locally. This involves running a local private blockchain using `testrpc` and then running a front end webserver to deploy and interact with the contracs using `truffle`.
+For testing and experimentation it is best to run Chain Forge locally. This involves running a local private blockchain using `testrpc` (installed above as ethereumjs-testrpc) and then running a front end webserver to deploy and interact with the contracs using `truffle`.
 
 Private local blockchain
 
@@ -120,11 +66,60 @@ Webserver to deploy and interact with contracts
 truffle serve
 ```
 
+
 ### Testing
 
 To test make sure that `testrpc` is running, then do
 ```bash
 truffle test test/*.test.js
+```
+
+
+### About
+
+The end goal will be to show a sample application on the blockchain, that is
+easy to build and implement and importantly shows the simplicity behind the
+disruptive products that are about to change our world. The tutorial will be
+organised as a 4 hour demonstration that will be given in mid February 2017.
+
+The `chain forge` application solves complexity in both legal and financial
+operations within a large organisation. Take for example an international
+franchise. Data, ie records, would be gathered and stored based on regional
+operations. This data is then aggregated by the parent franchise. Nothing runs
+simple, human error, manipulation of data and even in worse case scenario's
+corruption or fiddling of the books. These problems create complexity because
+the only solution is to add regulating systems on both the regional operations
+and the parent franchise's operations.
+
+In the case of the `Coder Forge Foundation` the `Chain Forge` application allows
+us to provide a `wallet` for each registered class. When a new class registers,
+a parent contract on the blockchain will create a child contract that represents
+the new class. If successfull, then person registering the new class will be
+shown a `qr` code that releates to their contract.
+
+This contract is also known as a wallet and funds can be added to it using just
+the `qr` code. Another way of looking at it is when a class registers they are
+given a futuristic personal bank account. This futuristic bank account can do
+only 2 things:
+
+ - accept funds being deposited from anyone
+ - release all funds to one person
+
+Layman definition of blockchain:
+```
+A "virtual" personal bank account that lives as a small program in virtual
+space. You can decide what it does, how it does it and what other bank accounts
+it talks to. This "virtual" personal bank account is also known as a `wallet` or
+`smart contract`.
+
+This personal bank account can be used to just store information, like land
+deeds, or it can store monetary value like Bitcoin. It could contain logic like
+managing a network of machinery, or it could manage logic that transferes funds
+only if certain conditions are met. It could also do nothing and be pointless,
+the choice is yours. Build one yourself or use a premade one.
+
+These are what are known as `wallet`'s or `smart contract`'s and importantly...
+its values and state can't be faked or manipulated.
 ```
 
 
@@ -142,3 +137,15 @@ If `testrpc` starts printing the above in a loop then try the following:
  2. Restart `testrpc` and run `truffle migrate`
  3. With `testrpc` still running, when point 2 above is finished, rerun `truffle
  serve`.
+
+
+### Roadmap
+
+This tutorial / demonstration application is still a work in progress. For
+example most of the wording will definitely change and the code is not
+completed yet. Here's whats to come (release date early Feb 2017).
+
+- Release funds if org has wallet
+- Use struct dataType for storing `Forge Data`
+- Split tutorial into parts (use branches to link parts)
+- Measure required gas for transactions
