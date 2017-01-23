@@ -43,6 +43,7 @@ class CoderForgeACL{
                     logForge.watch(function(err, res){
                         logForge.stopWatching();
                         console.log('logForge.watch.args: ', [err, res]);
+                        console.log('index: ', res.args.index.toString(10));
                         if(err) return reject(err);
 
                         let forge = Forge.at(res.args.forge);

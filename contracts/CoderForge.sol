@@ -4,30 +4,40 @@ import 'Forge.sol';
 
 contract CoderForge{
 
-    address owner;
+    address public owner;
 
-    address[] forges;
+    address[] public forges;
 
     event LogForge(
         address _from,
-        address forge
+        address forge,
+        uint256 index
     );
 
     function CoderForge(){
         owner = msg.sender;
     }
 
-    // function newForge(bytes32 name, bytes32 organiser, bytes32 url) returns (address){
+    function getForge(uint256 index) public constant returns (address){
+      address forge = forges[index];
+      return forge;
+    }
+
     function newForge(bytes32 name, address orgWallet) returns (address){
+
         Forge forge = new Forge();
         forge.setName(name);
         forge.setOrganiser(orgWallet);
-        LogForge(owner, forge);
+
+        uint256 index = forges.push(forge);   // returns new array length;
+        index--;
+
+        LogForge(owner, forge, index);
 
         return forge;
     }
 
-    function kill() returns(bool){
+    function kill() public constant returns (bool){
         if(msg.sender==owner){
             selfdestruct(msg.sender);
             return true;

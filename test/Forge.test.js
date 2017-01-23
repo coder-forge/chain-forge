@@ -37,7 +37,6 @@ contract('Forge', function(accounts){
         })
         .then((address)=>{
           let actual = address;
-          console.log('orgWallet test: actual/expected: ', actual, expectedWallet);
           assert.equal(actual, expectedWallet);
         });
     });
