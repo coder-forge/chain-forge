@@ -129,4 +129,38 @@ files (you can set their name by click their relevant tabs):
  - CoderForge.sol
  - Forge.sol
 
-And enter in the relevant code
+And enter in the relevant code from our files in `contracts/`.
+
+### Constructing
+
+The constructor for the contract is a public method with the same name. This
+will only every get called once, because although our contract is copied across
+many nodes on the network, it only ever exists as one thing. It could be seen
+as a singleton. The constructor is only ever called when a contract is deployed.
+
+In solidity online compiler create a constructor method for both contracts:
+
+`CoderForge.sol`
+
+```javascript
+contract CoderForge{
+
+  address public owner;
+
+  function CoderForge(){
+    owner = msg.sender;
+  }
+}
+```
+
+Now click the `Create` button and your changes should be deployed. Notice that
+we have created a public variable of the dataType address. Then in the
+constructor `CoderForge` we set `msg.sender` as the owner.
+
+`msg.sender` is the address used to deploy the contract, the address of the
+root owner. Through out the contract we will check that `msg.sender==owner` to
+make sure its only us that have control where we need it.
+
+Like above, set a public address owner for the `Forge.sol` contract and have
+its value set to the deployer, like we have just done with `CoderForge.sol`.
+Remember to change the names `CoderForge` to `Forge`.
