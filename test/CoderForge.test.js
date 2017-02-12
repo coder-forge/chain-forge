@@ -1,11 +1,28 @@
+'use strict';
+
 contract('CoderForge', function(accounts){
 
-  let cf;
+  //globals
+  let cf, forge;
 
-  it('deploys contract', (done)=>{
+  beforeEach((done)=>{
 
+    // test on a clean instance
     cf = CoderForge.at(CoderForge.deployed().address);
-    assert.isTrue(true);
     done();
+  });
+
+
+  it('constructs new forge', ()=>{
+
+    // create forge.
+    return cf.newForge();
+
+    // test forge contract exists
+  });
+
+  it('stores forge address', ()=>{
+
+    return cf.getForge(forge.index);
   });
 });
