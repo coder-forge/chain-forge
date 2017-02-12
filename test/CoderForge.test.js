@@ -3,7 +3,7 @@
 contract('CoderForge', function(accounts){
 
   //globals
-  let cf, forge;
+  let cf, forgeIndex;
 
   beforeEach((done)=>{
 
@@ -16,7 +16,11 @@ contract('CoderForge', function(accounts){
   it('constructs new forge', ()=>{
 
     // create forge.
-    return cf.newForge('My test forge');
+    return cf.newForge('My test forge')
+      .then(index => {
+
+        forgeIndex = parseInt(index);
+      });
 
     // test forge contract exists
   });
