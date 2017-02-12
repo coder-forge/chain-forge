@@ -65,11 +65,13 @@ We now have two very basic and simple contracts, that do absolutely nothing - an
 Next to deploy our pointless contracts to our local blockchain (`testrpc`). Open up two terminals...
 
 In `1st` terminal:
+
 ```bash
 testrpc
 ```
 
 This will spin up a local blockchain and provision it with 10 accounts, the public and private keys of each will be shown in the output. When you see the following: `Listening on localhost:8545` then in `2nd` terminal run:
+
 ```bash
 truffle migrate
 ```
@@ -79,6 +81,7 @@ truffle migrate
 CoderForge always promotes `TDD`, where possible. So we will now create some test cases for our contracts.
 
 `test/CoderForge.test.js`
+
 ```javascript
 contract('CoderForge', function(accounts){
 
@@ -94,6 +97,7 @@ contract('CoderForge', function(accounts){
 ```
 
 `test/Forge.test.js`
+
 ```javascript
 contract('Forge', function(accounts){
 
