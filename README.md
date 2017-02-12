@@ -29,9 +29,10 @@ Also see the `About` section below for an explaination of the `Chain Forge` app.
 Installation of tools and setup of workspace
 
 |[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|
-T.B.A
+Setting up initial contracts & tests
 
-|[Part 3]|
+|[Part 3](https://github.com/coder-forge/chain-forge/tree/part-3)|
+T.B.A.
 
 |[Part 4]|
 
