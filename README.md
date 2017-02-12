@@ -60,3 +60,5 @@ folder structure:
  - contracts/ Your solidity contracts for the blockchain
  - migrations/ Sorting order contracts are deployed and their linkage
  - test/ The unit tests directory.
+
+Continue to |[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|...
