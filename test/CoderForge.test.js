@@ -16,7 +16,7 @@ contract('CoderForge', function(accounts){
   it('constructs new forge', ()=>{
 
     // create forge.
-    return cf.newForge();
+    return cf.newForge('My test forge');
 
     // test forge contract exists
   });

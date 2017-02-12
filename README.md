@@ -171,7 +171,71 @@ method. Add the following method to our `CoderForge` contract:
 ```javascript
 function newForge(bytes32 name) returns (address){
 
-    Forge forge = new Forge();
-    return forge;
+  Forge forge = new Forge();
+  return forge;
 }
 ```
+
+Now click the `Create` button to deploy the new changes. This will result in a
+completely new contract, remember we can't change the previous deployed contract,
+only use its methods and delete/re-create it.
+
+Once the new contract has been deployed you will see the new method show up in
+the panel on the right: `newForge`, with a text input. Here we will add a string
+"My Forge", then click the `newForge` button.
+
+Viola. Our parent contract creates a child, the CoderForge has created a Forge.
+
+Now make sure our code in solidity compiler is in the relevant files in `test/`
+folder. Run the tests again:
+
+```bash
+truffle test
+```
+
+Still same result? (2 failing and 1 passing)
+
+In our `CoderForge::newForge()` call we need to provide a string. Solidity uses
+the dataType `bytes32` and javascript uses `bytes16` (i think). We can let the
+tools do the transformations here, in this case `web3`.
+
+In the unit test for `newForge` in the file `test/CoderForge.test.js`, enter
+in a string as the forge name like so:
+
+```javascript
+  it('constructs new forge', ()=>{
+
+    // create forge.
+    return cf.newForge('My test forge');
+
+    // test forge contract exists
+  });
+```
+
+Yay! we now have 2 tests passing and 1 failing...
+
+```bash
+$ truffle test
+Compiling CoderForge.sol...
+Compiling Forge.sol...
+
+
+  Contract: CoderForge
+    ✓ constructs new forge (50ms)
+    1) stores forge address
+    > No events were emitted
+
+  Contract: Forge
+    ✓ deploys contract
+
+
+  2 passing (496ms)
+  1 failing
+
+  1) Contract: CoderForge stores forge address:
+     TypeError: Cannot read property 'index' of undefined
+      at Context.it (test/CoderForge.test.js:26:24)
+      at Context.done (test/CoderForge.test.js:12:5)
+```
+
+### Keeping a record of our forges
