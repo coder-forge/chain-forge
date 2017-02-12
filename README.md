@@ -131,8 +131,6 @@ files (you can set their name by click their relevant tabs):
 
 And enter in the relevant code from our files in `contracts/`.
 
-### Constructing
-
 The constructor for the contract is a public method with the same name. This
 will only every get called once, because although our contract is copied across
 many nodes on the network, it only ever exists as one thing. It could be seen
@@ -164,3 +162,16 @@ make sure its only us that have control where we need it.
 Like above, set a public address owner for the `Forge.sol` contract and have
 its value set to the deployer, like we have just done with `CoderForge.sol`.
 Remember to change the names `CoderForge` to `Forge`.
+
+### Parent creates child
+
+Now we are going to get `CoderForge` to deploy a `Forge` by calling a public
+method. Add the following method to our `CoderForge` contract:
+
+```javascript
+function newForge(bytes32 name) returns (address){
+
+    Forge forge = new Forge();
+    return forge;
+}
+```
