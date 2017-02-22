@@ -12,16 +12,15 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io).
 
 In this section we will:
 
- -
- -
- -
+ - Build the web form
+ - Setting the organiser's address
+ - Release funds to the organiser
+ - Destruct our contracts
 
-### First, the test cases
+### Building the web form
 
-### Prototyping our contracts
+### Setting the organiser's address
 
-### Setup our Contracts in online compiler
+### Release funds to the organiser
 
-### Parent creates child
-
-### Keeping a record of our forges
+### Destruct our contracts
