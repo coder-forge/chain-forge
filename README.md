@@ -6,7 +6,7 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io).
 |[Part 1](https://github.com/coder-forge/chain-forge/tree/part-1)|
 |[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|
 |[Part 3](https://github.com/coder-forge/chain-forge/tree/part-3)|
-|[Part 4](https://github.com/coder-forge/chain-forge/tree/part-3)|
+|[Part 4]|
 
 # Part 4
 
