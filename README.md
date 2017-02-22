@@ -75,7 +75,7 @@ blockchain in your browser.
 https://ethereum.github.io/browser-solidity/
 
 When you head there you should see a sample contract, a voting contract. Click
-the `Compile` button on the right. Wait a second, then you should see some data
+the `Create` button on the right. Wait a second, then you should see some data
 filling in the following fields:
  - `Bytecode`
  - `Interface` (aka `Abi`)
@@ -141,6 +141,8 @@ In solidity online compiler create a constructor method for both contracts:
 `CoderForge.sol`
 
 ```javascript
+pragma solidity ^0.4.2;
+
 contract CoderForge{
 
   address public owner;
@@ -148,6 +150,22 @@ contract CoderForge{
   function CoderForge(){
     owner = msg.sender;
   }
+}
+```
+
+`Forge.sol`
+
+```javascript
+pragma solidity ^0.4.2;
+
+contract Forge{
+
+  address public owner;
+
+  function Forge(){
+    owner = msg.sender;
+  }
+
 }
 ```
 
