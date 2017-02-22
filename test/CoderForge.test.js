@@ -13,20 +13,27 @@ contract('CoderForge', function(accounts){
   });
 
 
-  it('constructs new forge', ()=>{
+  it('constructs new forge', (done)=>{
 
     // create forge.
     return cf.newForge('My test forge')
-      .then(index => {
+      .then(transHash => {
 
-        forgeIndex = parseInt(index);
+        let logForge = cf.LogForge({transactionHash: transHash, fromBlock: 'latest'});
+
+        // watch events for new forge.
+        logForge.watch(function(err, res){
+          if(err) throw err;
+
+          logForge.stopWatching();
+          forgeIndex = res.args.index.toString();
+          done();
+        });
       });
-
-    // test forge contract exists
   });
 
   it('stores forge address', ()=>{
 
-    return cf.getForge(forge.index);
+    return cf.forges(forgeIndex);
   });
 });

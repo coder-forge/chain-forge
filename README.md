@@ -354,12 +354,95 @@ in a global that we can use to check the forge is created...
   });
 ```
 
-Now we need to create the `getForge()` method, that will take an index and return
-the forge address. So in our online solidity compiler add the following method:
+Run our tests again, and they fail! The reason is that web3 is returning the
+transaction hash. Everytime a read or write is made to the blockchain it is
+packed into a transaction, with each transaction having a unique hash. This is
+not what we want, we want the same result as in our online compiler.
+
+To circumvent this we will use `event`'s and add a `watcher`, aka a `listener`.
+In our method `newForge` we will call an event that will log our index value.
+Then we will tell `web3`, which is used by Truffle tests, to listen for these
+events. Add the following to the top of our CoderForge contract in the online
+browser...
+
+`CoderForge.sol`
 
 ```javascript
-function getForge(uint256 index) public constant returns (address){
-  address forge = forges[index];
-  return forge;
+pragma solidity ^0.4.2;
+
+import 'Forge.sol';
+
+contract CoderForge{
+
+  address public owner;
+
+  address[] public forges;
+
+  event LogForge(
+    uint256 index
+  );
+...
 }
+```
+
+And in our `newForge` method we will call the event...
+
+```javascript
+function newForge(bytes32) returns (address){
+
+  Forge forge = new Forge();
+
+  uint256 index = forges.push(forge);   // returns new array length;
+  index--;
+
+  LogForge(index);
+
+  return index;
+}
+```
+
+Click `Create` and you will see in the right that the index is logged. Next to
+get our tests to listen for this. Our test for CoderForge.sol should now look
+like...
+
+`CoderForge.test.js`
+
+```javascript
+it('constructs new forge', (done)=>{
+
+  // create forge.
+  return cf.newForge('My test forge')
+    .then(transHash => {
+
+      let logForge = cf.LogForge({transactionHash: transHash, fromBlock: 'latest'});
+
+      // watch events for new forge.
+      logForge.watch(function(err, res){
+        if(err) throw err;
+
+        logForge.stopWatching();
+        forgeIndex = res.args.index.toString();
+        done();
+      });
+    });
+});
+```
+
+Run our tests again and they should now pass :)
+
+```bash
+$ truffle test
+Compiling CoderForge.sol...
+Compiling Forge.sol...
+
+
+  Contract: CoderForge
+    ✓ constructs new forge (68ms)
+    ✓ stores forge address (46ms)
+
+  Contract: Forge
+    ✓ deploys contract
+
+
+  3 passing (524ms)
 ```
