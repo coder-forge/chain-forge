@@ -47,10 +47,10 @@ Installation of tools and setup of workspace
 Setting up initial contracts & tests
 
 |[Part 3](https://github.com/coder-forge/chain-forge/tree/part-3)|
-T.B.A.
+Parent contract creates child
 
-|[Part 4]|
-
+|[Part 4](https://github.com/coder-forge/chain-forge/tree/part-4)|
+Setting up the front end
 
 ### Installation
 
