@@ -14,11 +14,26 @@ relevant instructions.
 The code presented here is in no way ready for real world application, yet. But
 should serve as a good example of the capabilities of blockchain technology.
 
+> CAUTION!
+
+> Truffle has recently updated to version 3 and removed the easy web dev build
+> Please make sure you are running truffle version 2.1.1
+
+> DISCLAIMER
+
+> This dapp, ie this code, is for demonstration purposes only. It will be used
+> by the Coder Forge Foundation some day but hasn't been stress tested or gone
+> under any code review - DO NOT USE IN PRODUCTION ENVIRONMENT.
+
+... you have been warned ;)
+
 ### Tools you will need
 
 The following will need to be set up on your machine:
 
- - NodeJS v6.9.1
+ - NodeJS (v6.9.1)
+ - Truffle (v2.1.1)
+ - Testrpc (latest)
 
 
 ### Tutorial Branches
@@ -42,7 +57,7 @@ T.B.A.
 Install the dependencies for `Chain Forge`.
 
 ```bash
-npm install -g truffle ethereumjs-testrpc bower
+npm install -g truffle@2.1.1 ethereumjs-testrpc bower
 ```
 
 Install `Chain Forge`.
