@@ -194,15 +194,35 @@ function newForge(bytes32 name) returns (address){
 }
 ```
 
+Oops. We got an error!
+
+The online compiler will nicely error report. The error lets us know that it
+can't find the Forge contract. So under `pragma solidity ^0.4.2;` use the
+`import` keyword to import the Forge contract.
+
+`CoderForge.sol`
+
+```javascript
+pragma solidity ^0.4.2;
+
+import 'Forge.sol';
+
+contract CoderForge{
+...
+}
+```
+
 Now click the `Create` button to deploy the new changes. This will result in a
 completely new contract, remember we can't change the previous deployed contract,
 only use its methods and delete/re-create it.
 
 Once the new contract has been deployed you will see the new method show up in
 the panel on the right: `newForge`, with a text input. Here we will add a string
-"My Forge", then click the `newForge` button.
+"My Forge" (make sure you also wrap the text in double quotes), then click
+the `newForge` button.
 
-Viola. Our parent contract creates a child, the CoderForge has created a Forge.
+Viola. Our parent contract creates a child, the CoderForge parent has created a
+Forge child contract.
 
 Now make sure our code in solidity compiler is in the relevant files in `test/`
 folder. Run the tests again:
