@@ -6,14 +6,21 @@ contract Forge{
     bytes32 public _name;
     address public _organiser;
     bytes32 public _url;
+    uint public funds;
 
-    function Forge(){
+    function Forge() payable{
         owner = msg.sender;
     }
 
+    // accecpt funds
+    function receiveFunds() payable {
+      funds += msg.value;
+    }
+
+    // release funds to organizer
     function payOrganiser() returns(bool){
-        // http://ethereum.stackexchange.com/a/2971/4304
-        return true; // targetAddress.call.gas(200000).value(this.balance)();
+          if(!_organiser.call.gas(20000).value(this.balance)())
+            throw;
     }
 
     // set forge name
@@ -54,6 +61,7 @@ contract Forge{
             selfdestruct(msg.sender);
             return true;
         }
+
         return false;
     }
 }
