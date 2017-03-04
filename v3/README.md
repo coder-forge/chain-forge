@@ -4,6 +4,11 @@ Project built using [truffle-init-webpack](https://github.com/trufflesuite/truff
 
 # Usage
 
+First change directory to `v3`
+```
+cd v3
+```
+
 ## Building and the frontend
 
 1. First run `truffle compile`, then run `truffle migrate` to deploy the contracts onto your network of choice (default "development").
