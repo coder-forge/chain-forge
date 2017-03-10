@@ -1,5 +1,7 @@
 app/bower_components
-build/
-node_modules/
+build
+node_modules
 
 npm-debug.log
+geth.log
+yarn-error.log

@@ -8,10 +8,15 @@ contract Forge{
     bytes32 public _url;
     mapping (address => uint) funds;
 
+    event Transfer(
+      uint _payable
+    );
+
     function Forge() payable{
         owner = msg.sender;
     }
 
+    // catch all
     function() payable{
       funds[_organiser] += msg.value;
     }
@@ -25,9 +30,13 @@ contract Forge{
     }
 
     // release funds to organizer
-    function payOrganiser() returns(bool){
-          if(!_organiser.call.gas(20000).value(funds[_organiser])())
-            throw;
+    function payOrganizer() returns(bool){
+        uint gas = 22918; // 22918
+        uint _payable = funds[_organiser] - gas;
+        Transfer(_payable);
+        if(!_organiser.call.gas(gas).value(_payable)())
+          throw;
+        return true;
     }
 
     // set forge name

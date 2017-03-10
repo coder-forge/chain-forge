@@ -1,66 +1,87 @@
-"use strict";
+// Import the page's CSS. Webpack will know what to do with it.
+import "../stylesheets/app.css";
 
-const coderForge = new CoderForgeACL();
-let accounts,
-    account;
+// Import libraries we need.
+import { default as Web3} from 'web3';
+import { default as contract } from 'truffle-contract'
 
-window.onload = function() {
-    web3.eth.getAccounts(function(err, accounts) {
+// Import our contract artifacts and turn them into usable abstractions.
+// import metacoin_artifacts from '../../build/contracts/MetaCoin.json';
+import coderforge_artifacts from '../../build/contracts/CoderForge.json';
+import forge_artifacts from '../../build/contracts/Forge.json';
 
-        if(err !== null)
-            return console.error("There was an error fetching your accounts.");
-        if(accounts.length === 0)
-            return console.error("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
+// MetaCoin is our usable abstraction, which we'll use through the code below.
+// var MetaCoin = contract(metacoin_artifacts);
 
-	    account = accounts[0];
-        coderForge.coinbase = account;
+var CoderForge = contract(coderforge_artifacts),
+  Forge = contract(forge_artifacts);
 
-        $('#registerForm').submit(function(e){
-            e.preventDefault();
+// The following code is simple to show off interacting with your contracts.
+// As your needs grow you will likely need to change its form and structure.
+// For application bootstrapping, check out window.addEventListener below.
+var accounts;
+var account;
 
-            const forge = {};
-            let errs = [];
+window.App = {
+  start: function() {
+    var self = this;
 
-            ['name', 'url', 'organiser', 'orgWallet', 'address', 'hostName'].forEach(function(field){
+    // Bootstrap the MetaCoin abstraction for Use.
+    //MetaCoin.setProvider(web3.currentProvider);
+    CoderForge.setProvider(web3.currentProvider);
+    Forge.setProvider(web3.currentProvider);
 
-                let val = $('input[name='+field+']','#registerForm').val();
+    // Get the initial account balance so it can be displayed.
+    web3.eth.getAccounts(function(err, accs) {
+      if (err != null) {
+        alert("There was an error fetching your accounts.");
+        return;
+      }
 
-                if(!val && $('input[name='+field+']','#registerForm').attr('required')) errs.push(field+' is required');
-                forge[field] = $('input[name='+field+']','#registerForm').val();
-            })
+      if (accs.length == 0) {
+        alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
+        return;
+      }
 
-            if(errs.length) return alert(errs.join('\n'));
-            console.log('submitting new forge: ', forge);
+      accounts = accs;
+      account = accounts[0];
 
-            coderForge.newForge(forge)
-                .then(forge => {
-
-                    const div = $('#registerSuccess');
-
-                    $('dd.name', div).html(name);
-                    $('dd.address', div).html(forge.address);
-
-                    var qrcode = new QRCode(document.getElementById("qrcode"), {
-                        text: forge.address,
-                        width: 128,
-                        height: 128,
-                        colorDark : "#000000",
-                        colorLight : "#ffffff",
-                        correctLevel : QRCode.CorrectLevel.H
-                    });
-
-                    $('#registerForm').hide();
-                    div.show();
-                })
-                .catch(err => {
-
-                    const div = $('#registerError');
-                    $('.msg', div).html(err);
-
-                    $('#registerForm').hide();
-                    div.show();
-                });
-        });
-
+      self.refreshBalance();
     });
+  },
+
+  setStatus: function(message) {
+    var status = document.getElementById("status");
+    status.innerHTML = message;
+  },
+
+  refreshBalance: function() {
+    var self = this;
+
+    var meta;
+    Forge.at('0xfc8ac42c775c36a9083bd57ee0311dfa5fddb86b').then(function(instance) {
+      return instance.getBalance.call(account, {from: account});
+    }).then(function(value) {
+      var balance_element = document.getElementById("balance");
+      balance_element.innerHTML = value.valueOf();
+    }).catch(function(e) {
+      console.log(e);
+      self.setStatus("Error getting balance; see log.");
+    });
+  }
 };
+
+window.addEventListener('load', function() {
+  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+  if (typeof web3 !== 'undefined') {
+    console.warn("Using web3 detected from external source. If you find that your accounts don't appear or you have 0 MetaCoin, ensure you've configured that source properly. If using MetaMask, see the following link. Feel free to delete this warning. :) http://truffleframework.com/tutorials/truffle-and-metamask")
+    // Use Mist/MetaMask's provider
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.warn("No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
+    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+    window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  }
+
+  App.start();
+});
