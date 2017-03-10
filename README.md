@@ -161,7 +161,62 @@ This tutorial / demonstration application is still a work in progress. For
 example most of the wording will definitely change and the code is not
 completed yet. Here's whats to come (release date early Feb 2017).
 
-- Release funds if org has wallet
-- Use struct dataType for storing `Forge Data`
-- Split tutorial into parts (use branches to link parts)
-- Measure required gas for transactions
+### Keeping a record of our forges
+
+So parent contract can create a child, we can call it to create as many children
+as we need. In the final app a registration form will trigger this, thus giving
+the wallet, or contract, to every registered forge.
+
+But we need to keep track. At the moment there is nothing to relate these. It
+would be helpful to keep a record of these child contracts... so, in the
+`CoderForge` contract we will add a new public property called `forges`, that
+is an array of addresses. When a forge is created its address is pushed to the
+array and its index, or where in the array its added, is returned as a number.
+
+So make the changes in the solidity online compiler for `CoderForge.sol`, it
+should now look like:
+
+```javascript
+pragma solidity ^0.4.2;
+
+import 'Forge.sol';
+
+contract CoderForge{
+
+  address public owner;
+  address[] public forges;
+
+  function CoderForge(){
+    owner = msg.sender;
+  }
+
+  function newForge(bytes32 name) returns (uint256){
+
+    Forge forge = new Forge();
+
+    uint256 index = forges.push(forge);   // returns new array length;
+    index--;
+
+    return index;
+  }
+}
+```
+
+Click the `Create` button, enter some text in `newForge` input (don't forge to
+wrap your text in quotes... eg `"my cool forge"`). Click the `newForge` button.
+
+You can now see in the result the result in the `Decoded` value:
+
+```bash
+Result: "0x0000000000000000000000000000000000000000000000000000000000000000"
+Transaction cost: 158829 gas.
+Execution cost: 136981 gas.
+Decoded:
+  1. uint256: 0
+```
+
+Here the value returned (Decoded) is `0` and is a `uint256` dataType. The first
+element in our `forges[]` array is `0`. Use the same input and button to add
+another forge, the result should be `1`, and another the result would be `2`,
+etc etc.
+>>>>>>> Stashed changes

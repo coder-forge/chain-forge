@@ -5,7 +5,6 @@ import 'Forge.sol';
 contract CoderForge{
 
     address public owner;
-
     address[] public forges;
 
     event LogForge(
@@ -44,4 +43,15 @@ contract CoderForge{
         }
         return false;
     }
+=======
+  function newForge(bytes32 name) returns (uint256){
+
+    Forge forge = new Forge();
+
+    uint256 index = forges.push(forge);   // returns new array length;
+    index--;
+
+    return index;
+  }
+>>>>>>> Stashed changes
 }
