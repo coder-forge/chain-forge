@@ -1,8 +1,8 @@
-var ConvertLib = artifacts.require("./ConvertLib.sol");
-var MetaCoin = artifacts.require("./MetaCoin.sol");
+var CoderForge = artifacts.require('./CoderForge.sol');
+var Forge = artifacts.require('./Forge.sol');
 
 module.exports = function(deployer) {
-  deployer.deploy(ConvertLib);
-  deployer.link(ConvertLib, MetaCoin);
-  deployer.deploy(MetaCoin);
+  deployer.deploy(CoderForge);
+  deployer.link(CoderForge, Forge);
+  deployer.deploy(Forge);
 };
