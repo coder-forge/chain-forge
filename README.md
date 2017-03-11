@@ -15,15 +15,20 @@ Project built using [truffle-init-webpack](https://github.com/trufflesuite/truff
 
 ## Installation
 ```
+npm install -g ethereumjs-testrpc truffle
 npm install
 ```
 
-## Building and the frontend
+## Runhing
 
-1. First run `truffle compile`, then run `truffle migrate` to deploy the contracts onto your network of choice (default "development").
-1. Then run `npm run dev` to build the app and serve it on http://localhost:8080
-
-## Tutorial
-
-The building of this dapp, including the problems it hopes to solve is coming up
- - watch this space
+In first terminal window...
+```
+testrpc -b 1
+```
+In second terminal run...
+```
+truffle compile
+truffle migrate
+npm run build
+npm run dev
+```
