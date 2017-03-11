@@ -66,7 +66,7 @@ window.App = {
 
   submitForge: function(data){
 
-    var cf = new CoderForge('0x362a3191cef89d31906b23922f3612dede223f52');
+    var cf = new CoderForge('0xd2f8a3d4d8212491857e0d5d8f045e1c7e2bd95f');
 
     var logForge = cf.LogForge({fromBlock: 'latest'});
     logForge.watch(function(err, res){
@@ -76,17 +76,29 @@ window.App = {
         forgeAddress = res.args.forge,
         index = res.args.index;
 
-      // get forge
+      // get & test forge
       var forge = new Forge(forgeAddress);
-      console.log('forge: ', forge);
-    })
+      forge._name()
+        .then(function(name){
+          console.log('Forge "'+name+'" created!');
+          console.log('\taddress: '+forge.address);
+
+          //show qr code
+          new QRCode(document.getElementById("qrcode"), forge.address);
+          $('#registerForm').hide();
+          $('#qrcode').show();
+        });
+    });
 
     cf.newForge.estimateGas()
       .then(function(est){
         console.log('estimateGas: ', est);
       })
 
-    cf.newForge(data.name, data.url, data.orgAddress, {from: account, gas: 457372}); // gas measured using estimateGas
+    cf.newForge(data.name, data.url, data.orgAddress, {from: account, gas: 457372})
+      .then(trans => {
+        console.log('trans: ', trans);
+      }); // gas measured using estimateGas
   },
 
   displayQR: function(){
