@@ -64,9 +64,16 @@ window.App = {
     });
   },
 
+  reset: function(){
+    $('#qrcode').html('')
+      .hide();
+    $('#registerForm').show();
+    $('#registerForm').closest('form').find("input[type=text], textarea").val("");    
+  },
+
   submitForge: function(data){
 
-    var cf = new CoderForge('0xd2f8a3d4d8212491857e0d5d8f045e1c7e2bd95f');
+    var cf = new CoderForge('0x78e4e34ee8dd6dd15482e6345f5fd59f28ac85c0');
 
     var logForge = cf.LogForge({fromBlock: 'latest'});
     logForge.watch(function(err, res){
