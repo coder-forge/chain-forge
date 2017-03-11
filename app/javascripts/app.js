@@ -27,7 +27,6 @@ window.App = {
     var self = this;
 
     // Bootstrap the MetaCoin abstraction for Use.
-    //MetaCoin.setProvider(web3.currentProvider);
     CoderForge.setProvider(web3.currentProvider);
     Forge.setProvider(web3.currentProvider);
 
@@ -46,28 +45,36 @@ window.App = {
       accounts = accs;
       account = accounts[0];
 
-      self.refreshBalance();
+    });
+
+    // form actions
+    $('#registerForm').submit(function CBRegisterForm(e) {
+      e.preventDefault();
+
+      var form = e.target,
+        data = {
+          name: $('input[name=name]', form).val(),
+          url: $('input[name=url]', form).val(),
+          orgAddress: $('input[name=organiser]', form).val(),
+        }
+
+      self.submitForge(data);
+
+      return false;
     });
   },
 
-  setStatus: function(message) {
-    var status = document.getElementById("status");
-    status.innerHTML = message;
+  submitForge: function(data){
+
+    var cf = new CoderForge('0x4e670e7b4b7b2e63410ef08af3445beac161126e');
+
+    console.log('data: ', data);
+    console.log('cf: ', cf);
   },
 
-  refreshBalance: function() {
+  displayQR: function(){
     var self = this;
 
-    var meta;
-    Forge.at('0xfc8ac42c775c36a9083bd57ee0311dfa5fddb86b').then(function(instance) {
-      return instance.getBalance.call(account, {from: account});
-    }).then(function(value) {
-      var balance_element = document.getElementById("balance");
-      balance_element.innerHTML = value.valueOf();
-    }).catch(function(e) {
-      console.log(e);
-      self.setStatus("Error getting balance; see log.");
-    });
   }
 };
 
