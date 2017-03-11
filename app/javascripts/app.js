@@ -66,10 +66,27 @@ window.App = {
 
   submitForge: function(data){
 
-    var cf = new CoderForge('0x4e670e7b4b7b2e63410ef08af3445beac161126e');
+    var cf = new CoderForge('0x362a3191cef89d31906b23922f3612dede223f52');
 
-    console.log('data: ', data);
-    console.log('cf: ', cf);
+    var logForge = cf.LogForge({fromBlock: 'latest'});
+    logForge.watch(function(err, res){
+
+      console.log('Result: ', res.args);
+      var from = res.args._from,
+        forgeAddress = res.args.forge,
+        index = res.args.index;
+
+      // get forge
+      var forge = new Forge(forgeAddress);
+      console.log('forge: ', forge);
+    })
+
+    cf.newForge.estimateGas()
+      .then(function(est){
+        console.log('estimateGas: ', est);
+      })
+
+    cf.newForge(data.name, data.url, data.orgAddress, {from: account, gas: 457372}); // gas measured using estimateGas
   },
 
   displayQR: function(){

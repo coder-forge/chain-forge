@@ -23,7 +23,7 @@ contract CoderForge{
       return forge;
     }
 
-    function newForge(bytes32 name, address orgWallet) returns (address){
+    function newForge(bytes32 name, bytes32 url, address orgWallet) returns (address){
 
         Forge forge = new Forge();
         forge.setName(name);
