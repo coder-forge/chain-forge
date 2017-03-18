@@ -62,18 +62,28 @@ window.App = {
 
       return false;
     });
+
+    $('#releaseFunds').submit(function CBReleaseFundsForm(e){
+      e.preventDefault();
+
+      var form = e.target,
+        address = $('input[name=address]', form).val();
+
+      self.releaseFunds(address);
+      return false;
+    });
   },
 
   reset: function(){
     $('#qrcode').html('')
       .hide();
     $('#registerForm').show();
-    $('#registerForm').closest('form').find("input[type=text], textarea").val("");    
+    $('#registerForm').closest('form').find("input[type=text], textarea").val("");
   },
 
   submitForge: function(data){
 
-    var cf = new CoderForge('0x78e4e34ee8dd6dd15482e6345f5fd59f28ac85c0');
+    var cf = new CoderForge('0x21ca79c686c508ff0f8f272bf0288c608d98f835');
 
     var logForge = cf.LogForge({fromBlock: 'latest'});
     logForge.watch(function(err, res){
@@ -87,7 +97,7 @@ window.App = {
       var forge = new Forge(forgeAddress);
       forge._name()
         .then(function(name){
-          console.log('Forge "'+name+'" created!');
+          console.log('Forge "'+web3.toUtf8(name)+'" created!');
           console.log('\taddress: '+forge.address);
 
           //show qr code
@@ -100,12 +110,18 @@ window.App = {
     cf.newForge.estimateGas()
       .then(function(est){
         console.log('estimateGas: ', est);
+        return cf.newForge(data.name, data.url, data.orgAddress, {from: account, gas: 457372})
       })
-
-    cf.newForge(data.name, data.url, data.orgAddress, {from: account, gas: 457372})
       .then(trans => {
         console.log('trans: ', trans);
       }); // gas measured using estimateGas
+
+  },
+
+  releaseFunds: function(address){
+
+    const forge = new Forge(address);
+    console.log('forge: ', forge);
   },
 
   displayQR: function(){
