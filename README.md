@@ -23,6 +23,9 @@ npm install
 
 ## Running
 
+Copy the file `config/params-dist.json` to `config/params.json`, and update if
+needed but defaults should work fine.
+
 In first terminal window...
 ```
 npm run testrpc
