@@ -1,0 +1,16 @@
+{
+  "accounts": {
+    "website": {
+      "key": "f7a51c28d7bc3c9b8a7c0fb66f773aa39a7dfc290a447369518be29f1699dd0a",
+      "amount": 10000000000000000000
+    },
+    "organiser": {
+      "key": "6eb4f52e5973c5e45cdc5ce6b94fb0c7df477384fb271a6d67053c9a19da81b2",
+      "amount": 10000000000000000000
+    },
+    "sponsor": {
+      "key": "6dd9a5dc014cebaac0709801da338b849c12c34b4c4a09ec35be5b2d84d29c8b",
+      "amount": 10000000000000000000
+    }
+  }
+}

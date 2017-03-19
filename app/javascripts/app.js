@@ -83,29 +83,7 @@ window.App = {
 
   submitForge: function(data){
 
-    var cf = new CoderForge('0x21ca79c686c508ff0f8f272bf0288c608d98f835');
-
-    var logForge = cf.LogForge({fromBlock: 'latest'});
-    logForge.watch(function(err, res){
-
-      console.log('Result: ', res.args);
-      var from = res.args._from,
-        forgeAddress = res.args.forge,
-        index = res.args.index;
-
-      // get & test forge
-      var forge = new Forge(forgeAddress);
-      forge._name()
-        .then(function(name){
-          console.log('Forge "'+web3.toUtf8(name)+'" created!');
-          console.log('\taddress: '+forge.address);
-
-          //show qr code
-          new QRCode(document.getElementById("qrcode"), forge.address);
-          $('#registerForm').hide();
-          $('#qrcode').show();
-        });
-    });
+    var cf = new CoderForge('0x7a5812ba512df41432ed408ed0a1b266aa8a27dc');
 
     cf.newForge.estimateGas()
       .then(function(est){
@@ -114,6 +92,29 @@ window.App = {
       })
       .then(trans => {
         console.log('trans: ', trans);
+
+        var logForge = cf.LogForge({transactionHash: trans, fromBlock: 'latest'});
+        logForge.watch(function(err, res){
+
+          console.log('Result: ', res.args);
+          var from = res.args._from,
+            forgeAddress = res.args.forge,
+            index = res.args.index;
+
+          // get & test forge
+          var forge = new Forge(forgeAddress);
+          forge._name()
+            .then(function(name){
+              console.log('Forge "'+web3.toUtf8(name)+'" created!');
+              console.log('\taddress: '+forge.address);
+
+              //show qr code
+              new QRCode(document.getElementById("qrcode"), forge.address);
+              $('#registerForm').hide();
+              $('#qrcode').show();
+            });
+        });
+
       }); // gas measured using estimateGas
 
   },

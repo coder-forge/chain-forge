@@ -2,6 +2,7 @@ app/bower_components
 build
 node_modules
 
+config/params.json
 npm-debug.log
 geth.log
 yarn-error.log
