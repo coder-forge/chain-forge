@@ -88,7 +88,7 @@ window.App = {
     cf.newForge.estimateGas()
       .then(function(est){
         console.log('estimateGas: ', est);
-        return cf.newForge(data.name, data.url, data.orgAddress, {from: account, gas: 457372})
+        return cf.newForge(data.name, data.url, data.orgAddress, {from: account, gas: 2000000})
       })
       .then(trans => {
         console.log('trans: ', trans);
