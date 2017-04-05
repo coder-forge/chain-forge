@@ -9,6 +9,11 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io)
 Another shout...
 *Unstable. This project is currently being bumped up to truffle v3*
 
+*deploying using truffle against `rospen` testnet works as expected. Integrating
+with webservices in this repo does not. Security has been integrated, but a
+code review by ---blockchain engineer--- is need and recommended before using
+this... ie... help please*
+
 # About truffle-init-webpack
 This project is build using the webpack project with Truffle. Includes contracts, migrations, tests, user interface and webpack build pipeline.
 Project built using [truffle-init-webpack](https://github.com/trufflesuite/truffle-init-webpack)
