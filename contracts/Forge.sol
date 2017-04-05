@@ -6,36 +6,39 @@ contract Forge{
     bytes32 public _name;
     address public _organiser;
     bytes32 public _url;
-    mapping (address => uint) funds;
+    mapping(address => uint) funds;
 
-    event Transfer(
-      uint _payable
-    );
-
-    function Forge() payable{
+    function Forge(){
         owner = msg.sender;
     }
 
     // catch all
     function() payable{
-      funds[_organiser] += msg.value;
+        funds[_organiser] += msg.value;
     }
 
-    function getBalance() returns(uint) {
-  		return funds[_organiser];
+    function getBalance() constant returns(uint balance) {
+  		  return this.balance;
   	}
-    // accecpt funds
-    function receiveFunds() payable {
-      funds[_organiser] += msg.value;
-    }
+
+    event TransferStatus(
+        bytes32 message
+    );
 
     // release funds to organizer
-    function payOrganizer() returns(bool){
-        uint gas = 22918; // 22918
-        uint _payable = funds[_organiser] - gas;
-        Transfer(_payable);
-        if(!_organiser.call.gas(gas).value(_payable)())
-          throw;
+    function payOrganizer() payable returns(bool){
+        // Transfer(_payable);
+        // if(!_organiser.call.gas(29000).value(this.balance)())
+        uint fund = funds[_organiser];
+        funds[_organiser] = 0;
+
+        if(!_organiser.send(fund)){
+            TransferStatus('it failed');
+            funds[_organiser] = fund;
+        }
+        else{
+            TransferStatus('success');
+        }
         return true;
     }
 

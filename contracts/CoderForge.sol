@@ -23,7 +23,7 @@ contract CoderForge{
       return forge;
     }
 
-    function newForge(bytes32 name, bytes32 url, address orgWallet) returns (address){
+    function newForge(bytes32 name, bytes32 url, address orgWallet) public returns (uint256){
 
         Forge forge = new Forge();
         forge.setName(name);
@@ -34,7 +34,7 @@ contract CoderForge{
 
         LogForge(owner, forge, index);
 
-        return forge;
+        return index;
     }
 
     function kill() public constant returns (bool){
