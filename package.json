@@ -1,7 +1,7 @@
 {
-  "name": "truffle-init-webpack",
+  "name": "Chain Forge",
   "version": "0.0.1",
-  "description": "Frontend example using truffle v3",
+  "description": "Federating funding accounts",
   "scripts": {
     "lint": "eslint ./",
     "build": "webpack",
