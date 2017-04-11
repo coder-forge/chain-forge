@@ -18,7 +18,13 @@ Project built using [truffle-init-webpack](https://github.com/trufflesuite/truff
 
 # Explaination
 
-Coming soon...
+This dapp allows individual entities within a federated non profit source their
+own funding. Upon registration a contract, that will accept funds fron anyone
+but will only release them to the orginaser of the entitiy. It is a simple
+demonstration of the tools available to develop Dapp's on the ethereum
+blockchain.
+
+It is hoped that, very soon, this will also be turned into a tutorial.
 
 ## Installation
 
