@@ -27,8 +27,6 @@ contract Forge{
 
     // release funds to organizer
     function payOrganizer() payable returns(bool){
-        // Transfer(_payable);
-        // if(!_organiser.call.gas(29000).value(this.balance)())
         uint fund = funds[_organiser];
         funds[_organiser] = 0;
 
