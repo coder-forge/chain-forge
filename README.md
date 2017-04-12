@@ -82,7 +82,7 @@ npm install
 
 In first terminal window...
 ```
-parity --geth --force-ui --chain=ropsten
+parity --geth --force-ui --chain=ropsten  --jsonrpc-cors "http://localhost:8081"
 ```
 
 Parity's web interface for its node on the ethereum network is at:
