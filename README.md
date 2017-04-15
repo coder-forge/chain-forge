@@ -73,8 +73,11 @@ It is hoped that, very soon, this will also be turned into a tutorial.
 
 ## Installation
 
+Download and install [Parity](https://github.com/paritytech/parity/releases).
+This will run as our node on the Ethererum blockchain.
+
 ```
-npm install -g parity ethereumjs-testrpc truffle
+npm install -g ethereumjs-testrpc truffle
 npm install
 ```
 
