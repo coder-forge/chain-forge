@@ -34,6 +34,16 @@ The most simpler solution would be to leave instructions on how to obtain a
 blockchain wallet and use it. But that would leave us without an excuse for a
 training project, and expecialy it wouldn't be half as much fun ;)
 
+# Tutorial
+
+The tutorial is split into parts, each part with its own branch and code in this
+repository. The parts are split into technologies as much as possible, as its
+a blockchain tutorial the `Solidity` development will be part 1.
+
+ - Part 1: Solidity, Remix online solidity editor, testrpc
+ - Part 2: Front end, truffle, webpack, testrpc
+ - Part 3: Deployment, parity, ethereum testnet, truffle
+
 # Methods used
 
 Special caution must be taken to cover all attack surfaces when dealing with
