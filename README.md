@@ -34,6 +34,17 @@ The most simpler solution would be to leave instructions on how to obtain a
 blockchain wallet and use it. But that would leave us without an excuse for a
 training project, and expecialy it wouldn't be half as much fun ;)
 
+# Tutorial
+
+Part 1: Using only the solidity language and an internet browser, build the
+social contract concept.
+
+Part 2: Truffle, testrpc, parity. Build and test contracts
+
+Part 3: Truffle, webpack. Build the web front end
+
+Part 4: Setup deployment and docker
+
 # Methods used
 
 Special caution must be taken to cover all attack surfaces when dealing with
