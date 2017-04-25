@@ -1,7 +1,17 @@
-version: '2'
+version: "3"
 
 services:
+
   web:
     build: .
+    ports:
+      - "3000:3000"
+    links:
+      - parity
+      - testrpc
+
   parity:
-      image: "ethcore/parity"
+      image: "ethcore/parity:nightly"
+
+  testrpc:
+      image: "harshjv/testrpc"
