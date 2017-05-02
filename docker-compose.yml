@@ -5,13 +5,12 @@ services:
   web:
     build: .
     ports:
-      - "8080:8080"
-#    links:
-#      - parity
-#      - testrpc
+      - "8081:8080"
+    links:
+      - parity
 
-#  parity:
-#      image: "ethcore/parity:nightly"
-
-#  testrpc:
-#      image: "harshjv/testrpc"
+  parity:
+      image: "ethcore/parity:nightly"
+      ports:
+        - "8080:8080"
+        - "8545:8545"

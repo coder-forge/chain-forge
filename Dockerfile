@@ -14,6 +14,7 @@ RUN apk add -t .gyp --no-cache git python g++ make \
     && apk del .gyp
 
 COPY . /usr/src/chain-forge
+RUN sed -i -e 's/"dev": "webpack-dev-server"/"dev": "webpack-dev-server --host 0.0.0.0"/g' package.json
 RUN truffle compile
 RUN npm run build
 
