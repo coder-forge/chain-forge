@@ -20,6 +20,8 @@ contracts. Create a new file by clicking the `new file` icon to the right of the
 tab for the initial contract. For now name this file `Parent` by clicking the
 tab name.
 
+![alt text](https://raw.githubusercontent.com/coder-forge/chain-forge/part-1/browser-solidity.png "Solidity Browser")
+
 ### Most basic of contracts
 
 The solidity language is fairly straight forward and if you have a handle of
