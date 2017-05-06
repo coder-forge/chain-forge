@@ -126,6 +126,7 @@ contract Parent{
     function Parent(){
         owner = msg.sender;
     }
+
 }
 ```
 
@@ -283,3 +284,111 @@ contract Child{
     }
 }
 ```
+
+### Now on to the guts, create the child contract
+
+Place this property in the `Parent` contract...
+```javascript
+    address[] public children;
+```
+
+Place this method in the `Parent` contract...
+
+```javascript
+
+    // create a child contract
+    function newChild(bytes32 name, address orgWallet) public returns (uint256){
+
+        if(owner != msg.sender){
+            throw;
+        }
+
+        Child child = new Child(orgWallet, name);
+
+        uint256 index = children.push(child);   // returns new array length;
+        index--;
+
+        // LogForge(owner, forge, index);
+
+        return index;
+    }
+
+```
+
+Ok, so whats here.
+
+```javascript
+
+        if(owner != msg.sender){
+            throw;
+        }
+```
+
+Everytime you update data on the blockchain it costs some `ether`, it costs
+nothing to read though. The costs are known as `gas` and are measured in `wei`,
+a sub demonimation of ether. This is a dangerous method as somebody could write
+a script and get our contract to keep creating `Child` contracts in a loop,
+until all our funds in `Parent` have run out. If its not `owner` calling this
+method then `throw` an exception.
+
+```javascript
+    function newChild(bytes32 name, address orgWallet) public returns (uint256)
+```
+
+A method `newChild` that takes a `name` of type `bytes32` and an `orgWallet` of
+type `address` and returns a number of type `uint256`.
+
+```javascript
+        Child child = new Child(orgWallet, name);
+```
+
+Here we are going to create an instance of the Child contract. We will be
+storing it during this method call as `child`. We pass the new contract an
+`orgWallet` and `name`.
+
+```javascript
+    address[] public children;
+```
+
+Remember the property `children` that we added to the `Parent` contract and it
+was defined as an array of `address` types. As I mentioned all properties are
+private by default, so we must declare it `public`.
+
+```javascript
+    uint256 index = children.push(child);   // returns new array length;
+    index--;
+```
+
+In these two lines we want to store the address of the new contract in our
+`children` array. This is an array of type `address` and when we `push` our
+child contract onto the array only its address will get stored. Also note that
+when we do this `push` operation it will return the new array length. Array
+index's start from 0 so `push`ing the first element onto the array will return
+its new length of 1 yet its actual index is 0, as arrays start from 0. We fix
+this by decrementing the index by one with `index--;`.
+
+Now in solidity browser calling the above will create a new contract `Child` and
+returns its index in the `children` property. For example enter the following
+in the `newChild` method and click the `newChild` button.
+
+```
+"moo man", "0xef55bfac4228981e850936aaf042951f7b146e41"
+```
+
+After a split second you should see the following:
+
+```
+Result: "0x0000000000000000000000000000000000000000000000000000000000000000"
+Transaction cost: 394623 gas.
+Execution cost: 371367 gas.
+Decoded:
+uint256: 0
+```
+
+Call the method again by clicking the `newChild` button and it will return `1`
+for the second `Child` contract created, `2` for the third, etc etc. Enter in
+one of the index's in the `children` input and click its button, it will
+return the relevant address of the child contract.
+
+Move to [part-2] where we will use parity and truffle to build out payment
+receiving and sending from the `Child` contract to the organisers account...
