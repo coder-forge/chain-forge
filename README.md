@@ -6,7 +6,11 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io)
 
 What we are going to attempt here is run a `mock` ethereum node locally, to
 build out and test handling of funds (`ether`) between our contracts and the
-organiser. There are many tools for the job:
+organiser. With this there will be a second tool that will server our web
+application and deploy our contracts to the `mock` ethereum node, then later
+deploy to the `ethereum testnet`. We will leave deploying to the live
+ethereum network for you to do, with proper instructions of course ;) There
+are many tools for the job:
 
  - [testrpc](https://github.com/ethereumjs/testrpc) mock ethereum node to build and test against.
  - [geth](https://github.com/ethereum/go-ethereum/wiki/geth) command line for creating local private network or running as node.
@@ -19,8 +23,8 @@ organiser. There are many tools for the job:
 
 The tools we will be using from the list above are:
 
- - Parity
- - Truffle
+ - [parity](https://github.com/paritytech/parity) Ethereum Node.
+ - [truffle](http://truffleframework.com/) For our Dapp.
 
 Both above require `nodejs` to be installed. I highly recommend using a `node
 version manager` for your particular operating system. Once you have node
@@ -33,10 +37,8 @@ Truffle serve's two purposes:
  1. A deploy tool.
  2. A webserver provitioned for `Dapp`'s.
 
-As a deployment tool we will use truffle for deploying our contracts to the
-ethereurm testnet and also locally. Once our contracts are good, and working as
-expected, then we will use truffle to provition a webserver, ready to connect
-to our nodes API's!
+As a deployment and development tool we will use truffle for deploying our
+contracts and building the web application, all of which compose our Dapp.
 
 We can easily install it with the command:
 
@@ -45,7 +47,7 @@ npm install -g truffle
 ```
 
 If you have any issues installing please leave an issue, that way we can
-improve this documentation.
+improve this documentation where ever possible.
 
 ##### Install Parity
 
@@ -71,6 +73,66 @@ parity --chain dev
 As the [documentation](https://github.com/paritytech/parity/wiki/Private-development-chain)
 states, you can create default accounts using the command line or the handy
 user interface at: [http://localhost:8080](http://localhost:8080)
+
+We will describe setting up using the user interface here, head to
+[http://localhost:8080](http://localhost:8080)
+
+ 1. 1st screenshot
+ 2. 2nd screenshot
+ 3. 3rd screenshot
+
+This address you created is the default address, also known as the coinbase.
+
+##### Talk to our private net
+
+Next we are going to use a node library called `web3`, this is perfect for
+communicating with the a blockchain network. The `RPC` port of parity is set at
+default: `8485`. These commands can easily be put in a file and run with node,
+but its much easier to use from the node console as you get method lists from
+objects.
+
+From the directory you ran `truffle init webpack` from, should be current,
+start the node console with:
+
+```
+node
+```
+
+In the output load the `web3` package, should have been auto installed with
+`truffle` command above...
+
+```node
+> Web3 = require('web');    // notice capital 'W'
+```
+
+which should return
+
+```
+{ [Function: Web3]
+  providers:
+   { HttpProvider: [Function: HttpProvider],
+     IpcProvider: [Function: IpcProvider] } }
+```
+
+Next create an instance connected to our local RPC port that parity has
+exposed...
+
+```node
+> web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+```
+
+To test that we are connected we will check the current block number of our
+private test net...
+
+```node
+> web3.eth.blockNumber
+```
+
+It should return `0` because no blocks have been mined, because there is
+nothing mining this private local testnet.
+
+
+
 
 
 ### Child releases funds to organiser
