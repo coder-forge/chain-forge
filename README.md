@@ -4,6 +4,59 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io)
 
 # Part 3 - Unit tests
 
+#### Parent::setOwner test
+
+We will start with the `Parent::setOwner` method. In `truffle` our unit tests
+are wrapped in a callback to the `contract` function. With each unit test
+wrapped as a callback to the `it` function.
+
+
+`test/Parent.js`
+
+```javascript
+var Parent = artifacts.require('./Parent.sol');
+
+contract('Parent', function(accounts){
+
+    const coinbase = accounts[0],
+        organiser = accounts[1];
+
+    it('will set the owner address', function(){
+
+        return Parent.deployed().then(function(_parent){
+
+            return _parent.setOwner.call(coinbase, "address here");
+        })
+        .then(function(result){
+            assert.isTrue(result, 'error setting owner address');
+        });
+    });
+
+});
+```
+
+```javascript
+var Parent = artifacts.require('./Parent.sol');
+```
+
+Here we are importing a javascript object that represents our contract. It will
+define the methods and properties of our contract using whats called an `ABI`.
+Basically `Parent` variable above is a javascript representation of our
+solidity contract.
+
+```javascript
+contract('Parent', function(accounts){
+
+    const coinbase = accounts[0],
+        organiser = accounts[1];
+    ...
+});
+```
+
+We pass our test suite as a callback to the 'contract' function. In the `Mocha`
+world this would be `describe`. Our callback gets passed an array of the
+accounts we have setup in `Parity`. On the next few line we define our accounts.
+
 ### Child releases funds to organiser
 
 
