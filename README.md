@@ -95,15 +95,18 @@ We will describe setting up using the user interface here, head to
  1. 1st screenshot
  2. 2nd screenshot
  3. 3rd screenshot
+ 4. Rename to `organiser`
 
-This address you created is the default address, also known as the coinbase.
+This address you created is the default address, also known as the coinbase. But
+because we will need a second account with mock funds we will be using that as
+the `coinbase`. If this makes no sense to you now, don't worry carry on ;)
 
-Next we will create another address that `Parity` will nicely fill with ether,
+Next we will create this 2nd address that `Parity` will nicely fill with ether,
 so we can play about.
 
  1. click on `Create Account`
  2. click on `Recovery Passphrase`
- 3. give it only an account name, I use `fund account` as this will hold all our
+ 3. give it only an account name, I use `coinbase` as this will hold all our
  mock ether.
  4. click create.
 
@@ -156,8 +159,8 @@ To test that we are connected we will check the balances of our two accounts.
 ```
 
 This will return a list of accounts that you have. Which should be two, the
-initial account, aka `coinbase`, and the account populated with dummy ether, Which
-I named `fund account`.
+initial account, aka `Organiser`, and the account populated with dummy ether,
+which we named `coinbase`.
 
 ### Deploying to our private net
 
