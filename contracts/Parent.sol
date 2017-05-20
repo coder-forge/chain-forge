@@ -8,9 +8,18 @@ contract Parent{
     address owner;
     address[] public children;
 
+    event Log(
+        address child,
+        uint256 index
+    );
+
     // constructor
     function Parent(){
         owner = msg.sender;
+    }
+
+    function getOwner() constant returns (address){
+        return owner;
     }
 
     // set address with admin rights
@@ -37,7 +46,7 @@ contract Parent{
         uint256 index = children.push(child);   // returns new array length;
         index--;
 
-        // LogForge(owner, forge, index);
+        Log(child, index);
 
         return index;
     }

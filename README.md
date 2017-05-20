@@ -4,6 +4,13 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io)
 
 # Part 3 - Unit tests
 
+#### Install testrpc
+
+`testrpc` is NOT a blockchain node. It mocks (mimics) a blockchain network and
+truffle is built to take advantage of some of `testrpc`'s abilities. This makes
+it much much quicker than running our unit tests against a real node like
+`parity`.
+
 #### Parent::setOwner test
 
 We will start with the `Parent::setOwner` method. In `truffle` our unit tests
@@ -21,14 +28,18 @@ contract('Parent', function(accounts){
     const coinbase = accounts[0],
         organiser = accounts[1];
 
-    it('will set the owner address', function(){
+    it('setOwner will set the owner address', function(){
 
+        // set new owner
         return Parent.deployed().then(function(_parent){
 
-            return _parent.setOwner.call(coinbase, "address here");
-        })
-        .then(function(result){
-            assert.isTrue(result, 'error setting owner address');
+            return _parent.setOwner(organiser, {from: coinbase})
+                .then(function(result){
+                    return _parent.getOwner.call(accounts[0]);
+                })
+                .then(function(newOwner){
+                    assert.equal(newOwner, organiser, 'new owner address not set');
+                });
         });
     });
 
@@ -57,8 +68,111 @@ We pass our test suite as a callback to the 'contract' function. In the `Mocha`
 world this would be `describe`. Our callback gets passed an array of the
 accounts we have setup in `Parity`. On the next few line we define our accounts.
 
-### Child releases funds to organiser
+```javascript
+it('setOwner will set the owner address', function()
+```
 
+The `it` call takes a descriptive string that will be logged, with a callback
+for the unit test to be run.
+
+```javascript
+return Parent.deployed().then(function(_parent){
+
+    return _parent.setOwner(organiser);
+})
+```
+
+With in our unit test's callback we get the deployed instance of our `Parent`
+contract as `_parent`.
+
+```javascript
+.then(function(){
+    return _parent.getOwner.call(accounts[0]);
+})
+```
+
+Once the call to `setOwner` is done we then get the value of `owner` by calling
+the `getOwner` method.
+
+```javascript
+.then(function(newOwner){
+    assert.equal(newOwner, organiser, 'new owner address not set');
+});
+```
+
+Run your tests with:
+
+```
+truffle test
+```
+
+Truffle will create some contracts on our development net and use them to run
+the tests against. Irritatingly this means that you must click the `confirmation`
+for each one in the `Parity UI`.
+
+Once done, and buttons clicked, then it should report something like...
+```
+$ truffle test test/Parent.js
+Using network 'development'.
+
+Compiling ./contracts/Child.sol...
+Compiling ./contracts/Parent.sol...
+
+
+  Contract: Parent
+    ✓ will set the owner address
+
+
+  1 passing (23ms)
+```
+
+This next test case should make sense...
+
+```javascript
+it('setOwner only allow owner address', function(){
+
+    // test owner not updated
+    return Parent.deployed().then(function(_parent){
+
+        return _parent.setOwner(organiser, {from: coinbase})
+            .then(function(result){
+                return _parent.getOwner.call(accounts[0]);
+            })
+            .then(function(owner){
+                assert.equal(owner, organiser, 'non owner udpate success');
+            });
+    });
+});
+```
+
+### Testing child contract creation
+
+Although the previous tests involved small operations, reading and writing to
+the `owner` property, when creating a new contract it can take time to be mined.
+Therefore we must `watch` for the result. In solidity we use the `event` to help
+us do this.
+
+In our parent contract we will add the following:
+
+
+```javascript
+it('will create a child contract', function(){
+
+    const expectedName = "My Cool Event";
+
+    return Parent.deployed().then(function(_parent){
+
+        _parent.newChild(expectedName, organiser, {from: coinbase})
+            .then(function(index){
+                console.log('inner index: ', index);
+            });
+    });
+});
+```
+
+Notice what is returned when we create a child contract. When we log the
+
+### Child releases funds to organiser
 
 All of the blockchain world has an attack surface. There are numerous ways that
 an attacker can syphon your funds into their account. It almost always

@@ -2,9 +2,9 @@ pragma solidity ^0.4.8;
 
 contract Child{
 
-    address owner;
-    address organiser;
-    bytes32 name;
+    address public owner;
+    address public organiser;
+    bytes32 public name;
 
     // constructor
     // as the parent will deploy this, then the parent address will always be
