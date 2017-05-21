@@ -7,6 +7,7 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io).
 |[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|
 |[Part 3](https://github.com/coder-forge/chain-forge/tree/part-3)|
 |[Part 4](https://github.com/coder-forge/chain-forge/tree/part-4)|
+|[Part 5](https://github.com/coder-forge/chain-forge/tree/part-5)|
 
 # Part 1
 
@@ -390,5 +391,6 @@ for the second `Child` contract created, `2` for the third, etc etc. Enter in
 one of the index's in the `children` input and click its button, it will
 return the relevant address of the child contract.
 
-Move to [part-2] where we will use parity and truffle to build out payment
-receiving and sending from the `Child` contract to the organisers account...
+Move to [part-2](https://github.com/coder-forge/chain-forge/tree/part-2) where
+we will use `testrpc` and `truffle` to build out payment receiving and sending
+from the `Child` contract to the organisers account...
