@@ -163,5 +163,5 @@ So the address's of our parent and child contracts are (using the above output)
  - Next we run a local mock blockchain locally using `testrpc`
  - Finally we have used `truffle` to deploy our contracts to our local blockchain
 
-In the next section we will write up some tests for the functionality we have
-at the moment.
+In [Part 3](https://github.com/coder-forge/chain-forge/tree/part-3) we will
+write up some tests for the functionality we have at the moment.
