@@ -7,8 +7,153 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io).
 |[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|
 |[Part 3](https://github.com/coder-forge/chain-forge/tree/part-3)|
 |[Part 4]|
+|[part 5]|
 
-# Part 4
+# Part 5
+##### Setting up for mock network
+
+First we will start our Development Parity node with the command. Do note that
+this command will run a ethereum blockchain locally, so can't accept real funds
+and any 'ether' generated is valueless, its just for development purposes.
+
+```bash
+parity --chain dev
+```
+
+```notice
+**notice**
+If you ever need to reset parity completely without uninstall / install, then
+deletes its data folder. Note if you have any address created/managed with
+parity, especially  on the live net, they will also be deleted and can't be
+revived unless backed up first.
+
+On some machines the folder should be one of the following:
+
+ - `~/.parity`
+ - `~/.local/share/io.parity.ethereum/`
+```
+
+As the [documentation](https://github.com/paritytech/parity/wiki/Private-development-chain)
+states, you can create default accounts using the command line or the handy
+user interface at: [http://localhost:8080](http://localhost:8080)
+
+We will describe setting up using the user interface here, head to
+[http://localhost:8080](http://localhost:8080)
+
+ 1. 1st screenshot
+ 2. 2nd screenshot
+ 3. 3rd screenshot
+ 4. Rename to `organiser`
+
+This address you created is the default address, also known as the coinbase. But
+because we will need a second account with mock funds we will be using that as
+the `coinbase`. If this makes no sense to you now, don't worry carry on ;)
+
+Next we will create this 2nd address that `Parity` will nicely fill with ether,
+so we can play about.
+
+ 1. click on `Create Account`
+ 2. click on `Recovery Passphrase`
+ 3. give it only an account name, I use `coinbase` as this will hold all our
+ mock ether.
+ 4. click create.
+
+In the accounts page you will now see another account with an unreal amount of
+ether. A sick amount. Obviously this will only work on your local development
+net and not on the live Ethereum network.
+
+##### Talk to our private net
+
+Next we are going to use a node library called `web3`, this is perfect for
+communicating with the a blockchain network. The `RPC` port of parity is set at
+default: `8485`. These commands can easily be put in a file and run with node,
+but its much easier to use from the node console as you get method lists from
+objects.
+
+From the directory you ran `truffle init webpack` from, should be current,
+start the node console with:
+
+```
+node
+```
+
+In the output load the `web3` package, should have been auto installed with
+`truffle` command above...
+
+```node
+> Web3 = require('web3');    // notice capital 'W'
+```
+
+which should return
+
+```
+{ [Function: Web3]
+  providers:
+   { HttpProvider: [Function: HttpProvider],
+     IpcProvider: [Function: IpcProvider] } }
+```
+
+Next create an instance connected to our local RPC port that parity has
+exposed...
+
+```node
+> web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+```
+
+To test that we are connected we will check the balances of our two accounts.
+
+```
+> web3.eth.accounts
+```
+
+This will return a list of accounts that you have. Which should be two, the
+initial account, aka `Organiser`, and the account populated with dummy ether,
+which we named `coinbase`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 In this section we will:
 
