@@ -6,8 +6,8 @@ A blockchain tutorial from [Coder Forge](http://coderforge.io).
 |[Part 1](https://github.com/coder-forge/chain-forge/tree/part-1)|
 |[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|
 |[Part 3](https://github.com/coder-forge/chain-forge/tree/part-3)|
-|[Part 4]|
-|[Part 5]|
+|Part 4|
+|[Part 5](https://github.com/coder-forge/chain-forge/tree/part-5)|
 
 # Part 4
 
@@ -19,6 +19,12 @@ involves contracts that have methods working with funds and a loop. The method
 below may be the best way of doing this, at time of writing, but as the
 language and technology evolve, new solutions and complexity will mean that new
 threats will be discoverd.
+
+Somebody could script calls to our `newChild` method of the `parent` contract,
+so to counter act this we will put that behind a login system. We want to give
+the organiser full control over their `child` contract. If they want to script
+it for whatever reason then fine. Also we want the child contract to only be
+able to release funds to the organiser and no-one else.
 
 Our child contract must receive funds, as a security precaution only methods
 that have the `payable` `modifier` can work with incoming funds. So we will
