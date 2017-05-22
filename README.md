@@ -60,12 +60,8 @@ is being sent and store it as a `uint` in the `funds` property.
 
 `Child`
 
-As `child` creation is protected by only allowing an owner address, we want to
-the public to be able to script calls to their `child` contract. We can't
-check that the call comes from the `owner` or `organiser` address's, so here
-we have a massive attack surface in the world of ethereum.
-
-A method that deals with fund transfere that is fully public.
+A method that deals with fund transfere that is fully public. Along with an
+event log.
 
 ```javascript
 
@@ -89,3 +85,11 @@ A method that deals with fund transfere that is fully public.
         return true;
     }
 ```
+
+Within the `payOrganizer` method we setup a `memory` variable, of type `uint`,
+called `fund` and set it with the current amount of ether in the property
+`funds`. We then set the `funds` property to zero. The reason we do this is to
+prevent any loops from being scripted that could siphon ether from our contract.
+If a transaction is in progress then the `funds` property will be 0. If the
+transaction fails, for whatever reason, then the `funds` property is reset to
+its original value.
