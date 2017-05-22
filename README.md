@@ -2,6 +2,13 @@
 
 A blockchain tutorial from [Coder Forge](http://coderforge.io)
 
+### Parts
+|[Part 1](https://github.com/coder-forge/chain-forge/tree/part-1)|
+|[Part 2](https://github.com/coder-forge/chain-forge/tree/part-2)|
+|Part 3|
+|[Part 4](https://github.com/coder-forge/chain-forge/tree/part-4)|
+|[Part 5](https://github.com/coder-forge/chain-forge/tree/part-5)|
+
 # Part 3 - Unit tests
 
 #### Install testrpc
@@ -195,3 +202,8 @@ And finally we test the `name` property of the child contract:
 ```javascript
 return Child.at(childAddress).name.call({from: coinbase});
 ```
+
+In the next part will create the method in `Child` that will release funds to
+the organiser's address...
+
+|[Part 4](https://github.com/coder-forge/chain-forge/tree/part-4)|
