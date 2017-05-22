@@ -5,6 +5,7 @@ contract Child{
     address public owner;
     address public organiser;
     bytes32 public name;
+    uint funds;
 
     // constructor
     // as the parent will deploy this, then the parent address will always be
@@ -13,6 +14,31 @@ contract Child{
         owner = msg.sender;
         organiser = orgAddr;
         name = orgName;
+    }
+
+    // catch all
+    function() payable{
+        funds += msg.value;
+    }
+
+    event TransferStatus(
+        bytes32 message
+    );
+
+    // release funds to organizer
+    function payOrganizer() payable returns(bool){
+
+        uint fund = funds;
+        funds = 0;
+
+        if(!organiser.send(fund)){
+            TransferStatus('it failed');
+            funds = fund;
+        }
+        else{
+            TransferStatus('success');
+        }
+        return true;
     }
 
     // set the organisers address

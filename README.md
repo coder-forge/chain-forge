@@ -20,9 +20,9 @@ below may be the best way of doing this, at time of writing, but as the
 language and technology evolve, new solutions and complexity will mean that new
 threats will be discoverd.
 
-Somebody could script calls to our `newChild` method of the `parent` contract,
+Somebody could script calls to our `newChild` method of the `Parent` contract,
 so to counter act this we will put that behind a login system. We want to give
-the organiser full control over their `child` contract. If they want to script
+the organiser full control over their `Child` contract. If they want to script
 it for whatever reason then fine. Also we want the child contract to only be
 able to release funds to the organiser and no-one else.
 
@@ -30,27 +30,25 @@ Our child contract must receive funds, as a security precaution only methods
 that have the `payable` `modifier` can work with incoming funds. So we will
 create a `catchall` method that will store the quantity of funds in a
 `property`, we will then have a method to release whatever value is in this
-`property` to the `orgWallet` address that the child contract was created with.
+`property` to the `organiser` address that the child contract was created with.
 
 `Child`
 
 ```javascript
-    mapping(address => uint) funds;
+    uint funds;
 ```
 
-Here we are creating an array of `address`'s with values that are `uint` called
-`funds`. There will only every be one item in the array, with the `orgWallet`
-as its index, but its good practice, where ever funds are linked to one account,
-to use this pattern. It means if you want to add / manage another address at a
-later date you have no refactoring to do. Blockchain Dapp's are microservices
-architecture, the contracts are small and many, each reading from another.
+Here we are creating an property of `uint` type called `funds`. This will hold
+the current value of the Ether in the contract. We can use this to temporarily
+set the funds to 0 whilst a transaction is being carried out, as we will see
+later.
 
 `Child`
 
 ```javascript
     // catch all
     function() payable{
-        funds[_organiser] += msg.value;
+        funds += msg.value;
     }
 ```
 
@@ -58,29 +56,32 @@ Here is the `magic method` `catchall`. Like ronseal, it litteraly does what it
 says on the tin. Use the `function` keyword without a name and add the
 `payable` modifier, now all funds sent to this contract, without calling one
 of the existing methods, will be caught by this method. We take the value that
-is being sent and store it as a `uint` in the `funds[address]` array, under
-the index `_organiser`.
+is being sent and store it as a `uint` in the `funds` property.
 
 `Child`
 
 As `child` creation is protected by only allowing an owner address, we want to
 the public to be able to script calls to their `child` contract. We can't
-check that the call comes from the `owner` or `orgWallet` address's, so here
+check that the call comes from the `owner` or `organiser` address's, so here
 we have a massive attack surface in the world of ethereum.
 
 A method that deals with fund transfere that is fully public.
 
 ```javascript
+
+    event TransferStatus(
+        bytes32 message
+    );
+
     // release funds to organizer
     function payOrganizer() payable returns(bool){
 
+        uint fund = funds;
+        funds = 0;
 
-        uint fund = funds[_organiser];
-        funds[_organiser] = 0;
-
-        if(!_organiser.send(fund)){
+        if(!organiser.send(fund)){
             TransferStatus('it failed');
-            funds[_organiser] = fund;
+            funds = fund;
         }
         else{
             TransferStatus('success');
