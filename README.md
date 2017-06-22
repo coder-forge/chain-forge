@@ -60,9 +60,6 @@ is being sent and store it as a `uint` in the `funds` property.
 
 `Child`
 
-A method that deals with fund transfere that is fully public. Along with an
-event log.
-
 ```javascript
 
     event TransferStatus(
@@ -93,3 +90,7 @@ prevent any loops from being scripted that could siphon ether from our contract.
 If a transaction is in progress then the `funds` property will be 0. If the
 transaction fails, for whatever reason, then the `funds` property is reset to
 its original value.
+
+We are also using `events`. These will log messages that we can listen for with
+our JavaScript API. If release of funds worked, then it will log the event
+`success`, if not then will log `it failed`.
