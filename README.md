@@ -18,7 +18,7 @@ is the perfect tool for quickly prototyping social contracts and dapps.
 When you go the above url you will be shown a default contract `Ballot`. On the
 left is the `Code Editor` and on the right is a panel for interacting with your
 contracts. Create a new file by clicking the `new file` icon to the right of the
-tab for the initial contract. For now name this file `Parent` by clicking the
+tab for the initial contract. For now name this file `Parent.sol` by clicking the
 tab name.
 
 ![alt text](https://raw.githubusercontent.com/coder-forge/chain-forge/part-1/browser-solidity.png "Solidity Browser")
@@ -35,7 +35,7 @@ for its use in this tutorial.
 
 Enter the following in to your new file:
 
-`Parent`
+File: `Parent.sol`:
 
 ```javascript
 contract Parent{
@@ -49,9 +49,9 @@ using. This is expected, Solidity is an evolving language with many features in
 the pipeline including `fixed point values`, we therefore have to say which
 version of the compiler we are developing. At the time of writing the vesion is
 `0.4.10`. Prepend `pragma solidity ^0.4.10;` to your file, (the `^` means
-comapable with). Your `Parent` file should now look like:
+comapable with). Your `Parent.sol` file should now look like:
 
-`Parent`
+File: `Parent`:
 
 ```javascript
 pragma solidity ^0.4.10;
