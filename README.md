@@ -64,6 +64,17 @@ Fairly simple...
 npm install -g ethereumjs-testrpc
 ```
 
+### Create a new project
+
+Next we will create a new project using `truffle`. Thankfuly the `truffle cli`
+has a command to provision a new project. Create a new directory, change into it
+and run the follwing:
+
+```bash
+truffle init
+npm install
+```
+
 ### Setting up our contracts in truffle
 
 Next we will import our `Parent` and `Child` contracts to `truffle` and deploy
@@ -124,6 +135,27 @@ pragma solidity ^0.4.10;
 pragma solidity ^0.4.10;
 ^----------------------^
 Compiliation failed. See above.
+```
+
+Another error you may see is `deprecated warnings`, ignore these for now. Once
+you have completed the tutorial a good excersie would be to look into these,
+they basically mean that some `keyword` in `solidity` is going to be removed in
+future. For example:
+
+```
+Compilation warnings encountered:
+
+/opt/coder-forge/chain-forge/contracts/Parent.sol:32:13: Warning: "throw" is deprecated in favour of "revert()", "require()" and "assert()".
+            throw;
+            ^---^
+```
+
+Next we will start our `mock` ethereum node using `testrpc` and deploy our
+compiled contracts to it  - see if everything is working. In another terminal
+window run the following:
+
+```bash
+testrpc
 ```
 
 Change the version in the files `Child.sol` and `Parent.sol` to match the
