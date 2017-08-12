@@ -164,6 +164,7 @@ be `0.4.8` because of the line `(current compiler is
 0.4.8+commit.60cc1668.Emscripten.clang`.
 
 Now deploy using the `migrate` command...
+(note: if below isn't outputed then try again with `truffle migrate --reset`)
 
 ```
 $ truffle migrate
