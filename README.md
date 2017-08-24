@@ -18,7 +18,31 @@ truffle is built to take advantage of some of `testrpc`'s abilities. This makes
 it much much quicker than running our unit tests against a real node like
 `parity` or `geth`.
 
+#### About unit tests & test driven development (TDD)
+
+Test driven development is a methodology of writing your `unit tests` first. A
+unit test is something that tests a unit of code. In the case of `solidity` it
+tests a function.
+
+TDD gets too much of a bad rap, unfortunately, and also by some solid
+enginneers. The world of monkey patching and jumping into a project that
+permeates software engineering today means there are plenty of false cliche's as
+to why you shouldn't use TDD.
+
+These are the reasons `Coder Forge` promotes TDD:
+ - Cleaner code
+ - Better code quality
+ - Better software architecture
+
+As in all trades you are not the only person that will deal with your work ;)
+
 #### Parent::setOwner test
+
+For the purpose of this tutorial we haven't used TDD, as we needed to
+demonstrate remix IDE for prototyping ideas. So, lets catch back up with the
+code base and write our unit tests now.
+
+Note: All our tests are located in the `test/` folder.
 
 We will start with the `Parent::setOwner` method. In `truffle` our unit tests
 are wrapped in a callback to the `contract` function. With each unit test
