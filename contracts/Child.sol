@@ -9,7 +9,7 @@ contract Child{
     // constructor
     // as the parent will deploy this, then the parent address will always be
     // owner.
-    function Child(address orgAddr, bytes32 orgName){
+    function Child(bytes32 orgName, address orgAddr){
         owner = msg.sender;
         organiser = orgAddr;
         name = orgName;

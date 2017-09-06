@@ -9,14 +9,11 @@ contract('Parent', function(accounts){
     it('setOwner will set the owner address', function(){
 
         // set new owner
-        return Parent.deployed().then(function(_parent){
+        return Parent.deployed().then(function parentDeployed(_parent){
 
-            return _parent.setOwner(organiser, {from: coinbase})
-                .then(function(){
-                    return _parent.getOwner.call(accounts[0]);
-                })
-                .then(function(newOwner){
-                    assert.equal(newOwner, organiser, 'new owner address not set');
+            return _parent.setOwner.call(organiser)
+                .then(function parentDeployed(result){
+                    assert.isTrue(result, 'setting owner returned false');
                 });
         });
     });
@@ -26,13 +23,12 @@ contract('Parent', function(accounts){
         // test owner not updated
         return Parent.deployed().then(function(_parent){
 
-            return _parent.setOwner(organiser, {from: coinbase})
-                .then(function(){
-                    return _parent.getOwner.call(accounts[0]);
+            return _parent.getOwner.call()
+                .then(function(result){
+                    return _parent.setOwner.call(organiser, {from: organiser});
                 })
-                .then(function(owner){
-                    assert.equal(owner, organiser, 'non owner udpate success');
-                    return _parent.setOwner(coinbase, {from: organiser});       // reset coinbase as owner
+                .then(function(result){
+                    assert.isFalse(result, 'non owner can set owner');
                 });
         });
     });

@@ -37,11 +37,9 @@ contract Parent{
     // create a child contract
     function newChild(bytes32 name, address orgWallet) public returns (uint256){
 
-        if(owner != msg.sender){
-            throw;
-        }
+        require(owner == msg.sender);
 
-        Child child = new Child(orgWallet, name);
+        Child child = new Child(name, orgWallet);
 
         uint256 index = children.push(child);   // returns new array length;
         index--;
